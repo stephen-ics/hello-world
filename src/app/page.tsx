@@ -7,7 +7,7 @@ export default function Home() {
   const myRef = useRef(null);
   
   return (
-    <div className='h-full bg-blue-100'>
+    <div className='h-screen w-screen bg-blue-100'>
       Hello World!
 
 
