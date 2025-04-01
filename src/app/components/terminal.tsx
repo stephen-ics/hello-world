@@ -52,21 +52,21 @@ export default function Terminal() {
                         <div className="flex w-1/6 min-w-[3vw] max-w-[4vw] m-2 items-center">
                             <HoverableImage 
                                 srcDefault="/terminal_icons/terminal_red.png"
-                                srcHover="/terminal_icons/terminal_red.png"
+                                srcHover="/terminal_icons/terminal_red_hover.png"
                                 width={500}
                                 height={500}
                                 alt="red terminal icon"
                             />
                             <HoverableImage 
                                 srcDefault="/terminal_icons/terminal_yellow.png"
-                                srcHover="/terminal_icons/terminal_yellow.png"
+                                srcHover="/terminal_icons/terminal_yellow_hover.png"
                                 width={500}
                                 height={500}
                                 alt="red terminal icon"
                             />
                             <HoverableImage 
                                 srcDefault="/terminal_icons/terminal_green.png"
-                                srcHover="/terminal_icons/terminal_green.png"
+                                srcHover="/terminal_icons/terminal_green_hover.png"
                                 width={500}
                                 height={500}
                                 alt="red terminal icon"
