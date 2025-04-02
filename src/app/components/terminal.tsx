@@ -52,40 +52,40 @@ export default function Terminal() {
                     }}
                     className="bg-gray-50 w-full min-w-[20vw] min-h-[20vh] rounded-lg border-2 border-solid border-gray-300 flex flex-col m-4 overflow-hidden"
                 >
-                <div className="bg-gray-300 handle hover:bg-gray-200 transition duration-300">
-                    <div className='flex w-full'>
-                        <div className="flex w-1/6 min-w-[3vw] max-w-[4vw] m-2 items-center">
-                            <HoverableImage 
-                                srcDefault="/terminal_icons/terminal_red.png"
-                                srcHover="/terminal_icons/terminal_red_hover.png"
-                                width={500}
-                                height={500}
-                                alt="red terminal icon"
-                                handleClick={handleClickRed}
-                            />
-                            <HoverableImage 
-                                srcDefault="/terminal_icons/terminal_yellow.png"
-                                srcHover="/terminal_icons/terminal_yellow_hover.png"
-                                width={500}
-                                height={500}
-                                alt="red terminal icon"
-                            />
-                            <HoverableImage 
-                                srcDefault="/terminal_icons/terminal_green.png"
-                                srcHover="/terminal_icons/terminal_green_hover.png"
-                                width={500}
-                                height={500}
-                                alt="red terminal icon"
-                            />
-                        </div>
-                        <div className="flex justify-center w-full mr-[12%] items-center">
-                            <p>📁 Stephen Ni - zsh</p>
+                    <div className="bg-gray-300 handle hover:bg-gray-200 transition duration-300">
+                        <div className='flex w-full'>
+                            <div className="flex w-1/6 min-w-[3vw] max-w-[4vw] m-2 items-center">
+                                <HoverableImage 
+                                    srcDefault="/terminal_icons/terminal_red.png"
+                                    srcHover="/terminal_icons/terminal_red_hover.png"
+                                    width={500}
+                                    height={500}
+                                    alt="red terminal icon"
+                                    handleClick={handleClickRed}
+                                />
+                                <HoverableImage 
+                                    srcDefault="/terminal_icons/terminal_yellow.png"
+                                    srcHover="/terminal_icons/terminal_yellow_hover.png"
+                                    width={500}
+                                    height={500}
+                                    alt="red terminal icon"
+                                />
+                                <HoverableImage 
+                                    srcDefault="/terminal_icons/terminal_green.png"
+                                    srcHover="/terminal_icons/terminal_green_hover.png"
+                                    width={500}
+                                    height={500}
+                                    alt="red terminal icon"
+                                />
+                            </div>
+                            <div className="flex justify-center w-full mr-[12%] items-center">
+                                <p>📁 Stephen Ni - zsh</p>
+                            </div>
                         </div>
                     </div>
-                </div>
-                <div className="flex grow m-2">
-                    > Enter some terminal text
-                </div>
+                    <div className="flex grow m-2">
+                        > Enter some terminal text
+                    </div>
                 </div>
             </Resizable>
         </div>
