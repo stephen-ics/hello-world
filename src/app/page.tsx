@@ -1,16 +1,16 @@
 "use client"
 import Terminal from '@/app/components/terminal'
-import Draggable from 'react-draggable';
-import { useRef } from 'react'
+import { Counter } from '@/app/components/counter'
 
 export default function Home() {
-  const myRef = useRef(null);
   
   return (
     <div className='h-screen w-screen bg-blue-100'>
       Hello World!
 
-
+      <Counter />
+      <Counter />
+      <Counter />
       <Terminal />
    
     </div>
