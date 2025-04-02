@@ -1,6 +1,5 @@
 "use client"
 import Terminal from '@/app/components/terminal'
-import { Counter } from '@/app/components/counter'
 import TerminalApp from '@/app/components/terminalApp'
 import { useSelector } from 'react-redux'
 
@@ -15,9 +14,6 @@ export default function Home() {
         <Terminal />
       }
       
-      <Counter />
-      <Counter />
-      <Counter />
       <TerminalApp />
    
     </div>

@@ -1,6 +1,6 @@
 import React from 'react'
 import { useDispatch } from 'react-redux'
-import { openTerminal, closeTerminal } from '../counter/applicationSlice' 
+import { openTerminal, closeTerminal } from '../slices/applicationSlice' 
 
 export default function Terminal() {
     const dispatch = useDispatch()
