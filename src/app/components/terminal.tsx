@@ -1,21 +1,22 @@
 'use client'
 
 import { useState, useRef } from 'react';
+import { useDispatch } from 'react-redux'
+import { closeTerminal } from '../slices/applicationSlice'
 import { Resizable } from 'react-resizable';
 import 'react-resizable/css/styles.css';
 import Draggable from 'react-draggable';
-import Image from 'next/image'
 import HoverableImage from './hoverable_image';
 
 export default function Terminal() {
     const [size, setSize] = useState({ width: 400, height: 300 });
+    const dispatch = useDispatch()
 
     const dragRef = useRef(null);
 
     const onResize = (event, { size }) => {
         setSize(size);
     };
-
 
     const [position, setPosition] = useState({ x: 0, y: 0 });
 

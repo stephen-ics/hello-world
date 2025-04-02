@@ -1,14 +1,20 @@
 import React from 'react'
 import { useDispatch } from 'react-redux'
-import { openTerminal, closeTerminal } from '../slices/applicationSlice' 
+import { openTerminal } from '../slices/applicationSlice'
+import Image from 'next/image' 
 
 export default function Terminal() {
     const dispatch = useDispatch()
 
     return (
-        <div>
-            <button onClick={() => dispatch(openTerminal())} className='w-20 h-20 bg-black text-white'>open terminal</button>
-            <button onClick={() => dispatch(closeTerminal())} className='w-20 h-20 bg-white'>close terminal</button>
-        </div>
+        <Image
+            src='/terminal_icons/terminal_icon.png'
+            width={50}
+            height={50}
+            alt='terminal icon'
+            onClick={() => dispatch(openTerminal())}
+        >
+
+        </Image>
     );
 }
