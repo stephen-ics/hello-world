@@ -1,7 +1,5 @@
 import Image from 'next/image'
 import { useState } from 'react'
-import { useDispatch } from 'react-redux'
-import { closeTerminal } from '../slices/applicationSlice'
 
 type HoverableImageProps = {
     srcDefault: string;
@@ -9,11 +7,11 @@ type HoverableImageProps = {
     width: number;
     height: number;
     alt: string;
+    handleClick: () => void;
 };
 
-export default function HoverableImage({ srcDefault, srcHover, width, height, alt }: HoverableImageProps) {
+export default function HoverableImage({ srcDefault, srcHover, width, height, alt, handleClick }: HoverableImageProps) {
     const [hover, setHover] = useState(false);
-    const dispatch = useDispatch();
 
     return (
         <div 
@@ -26,7 +24,7 @@ export default function HoverableImage({ srcDefault, srcHover, width, height, al
                 width={width}
                 height={height}
                 alt={alt}
-                onClick={() => dispatch(closeTerminal())}
+                onClick={handleClick}
             />
         </div>
     );

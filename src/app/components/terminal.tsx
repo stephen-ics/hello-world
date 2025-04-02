@@ -12,6 +12,10 @@ export default function Terminal() {
     const [size, setSize] = useState({ width: 400, height: 300 });
     const dispatch = useDispatch()
 
+    function handleClickRed() {
+        dispatch(closeTerminal());
+    }
+
     const dragRef = useRef(null);
 
     const onResize = (event, { size }) => {
@@ -57,6 +61,7 @@ export default function Terminal() {
                                 width={500}
                                 height={500}
                                 alt="red terminal icon"
+                                handleClick={handleClickRed}
                             />
                             <HoverableImage 
                                 srcDefault="/terminal_icons/terminal_yellow.png"
