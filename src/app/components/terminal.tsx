@@ -6,7 +6,7 @@ import { closeTerminal } from '../slices/applicationSlice'
 import { Resizable } from 'react-resizable';
 import 'react-resizable/css/styles.css';
 import Draggable from 'react-draggable';
-import HoverableImage from './hoverable_image';
+import HoverableImage from './hoverableImage';
 
 export default function Terminal() {
     const [size, setSize] = useState({ width: 400, height: 300 });
@@ -87,8 +87,10 @@ export default function Terminal() {
                                 </div>
                             </div>
                         </div>
-                        <div className="flex grow m-2">
-                            &gt; Enter some terminal text
+                        <div className="flex grow">
+                            <textarea className='m-4 w-full'>
+
+                            </textarea>
                         </div>
                     </div>
                 </Resizable>
