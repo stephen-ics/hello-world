@@ -20,7 +20,7 @@ export default function Terminal() {
         const y = window.innerHeight / 2 - size.height;
         setPosition({ x, y });
         setMounted(true); // now safe to render
-    }, [size]);
+    }, []);
 
     if (!mounted || position === null) return null; // prevent snap
 
