@@ -17,7 +17,7 @@ export default function HoverableImage({ srcDefault, srcHover, width, height, al
         <div 
             onMouseEnter={() => setHover(true)}
             onMouseLeave={() => setHover(false)}
-            className='mx-1'
+            className='mx-1 min-w-[10]'
         >
             <Image
                 src={hover ? srcHover : srcDefault}

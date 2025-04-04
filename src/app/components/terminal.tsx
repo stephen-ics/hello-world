@@ -54,11 +54,11 @@ export default function Terminal() {
                 >
                     <div
                         style={{ width: size.width, height: size.height }}
-                        className="bg-gray-50 w-full min-w-[20vw] min-h-[20vh] rounded-lg border-2 border-solid border-gray-300 flex flex-col m-4 overflow-hidden"
+                        className="bg-gray-50 w-full lg:min-w-[20vw] min-w-[300px] lg:min-h-[30vh] min-h-[200px] rounded-lg border-2 border-solid border-gray-300 flex flex-col m-4 overflow-hidden"
                     >
                         <div className="bg-gray-300 handle hover:bg-gray-200 transition duration-300">
                             <div className='flex w-full'>
-                                <div className="flex w-1/6 min-w-[3vw] max-w-[4vw] m-2 items-center">
+                                <div className="flex w-1/6 max-w-[4vw] m-2 items-center">
                                     <HoverableImage 
                                         srcDefault="/terminal_icons/terminal_red.png"
                                         srcHover="/terminal_icons/terminal_red_hover.png"
