@@ -46,7 +46,7 @@ export default function Home() {
         <Terminal inputRef={inputRef}/>
       }
       
-      <div className='absolute top-[50px] left-[30px] z-10'>
+      <div className='absolute top-[30px] left-[30px]'>
         <TerminalApp />
       </div>
       <Dock />

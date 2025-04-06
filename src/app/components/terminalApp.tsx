@@ -6,7 +6,7 @@ import Image from 'next/image'
 import { animateAppOpen, animateAppClose } from '../animations/appAnimations'
 import { motion, useAnimation } from 'framer-motion'
 
-export default function Terminal() {
+export default function TerminalApp({ isDock = false }) {
     const terminalOpen = useSelector(state => state.application.terminalOpen)
     const controls = useAnimation();
 
@@ -29,12 +29,24 @@ export default function Terminal() {
 
     return (
         <motion.div animate={controls} onClick={handleClick}>
-            <Image
-                src='/terminal_icons/terminal_icon.png'
-                width={50}
-                height={50}
-                alt='terminal icon'
-            />
+            <div className='relative flex flex-col items-center'>
+                <Image
+                    src='/terminal_icons/terminal_icon.png'
+                    width={50}
+                    height={50}
+                    alt='terminal icon'
+                />
+                {(terminalOpen && isDock) &&
+                    <div className='absolute bottom-[-1px] rounded-full opacity-75'>
+                        <Image 
+                            src='/app_icons/app_active.png'
+                            width={4}
+                            height={4}
+                            alt='app active'
+                        />
+                    </div>
+                }
+            </div>
         </motion.div>
     )
 }

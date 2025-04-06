@@ -67,7 +67,7 @@ export default function Terminal({ inputRef }) {
                 >
                     <div
                         style={{ width: size.width, height: size.height }}
-                        className="bg-gray-50 w-full lg:min-w-[500px] min-w-[300px] lg:min-h-[30vh] min-h-[300px] rounded-lg border-2 border-solid border-gray-300 flex flex-col m-4 overflow-hidden"
+                        className="bg-gray-50 w-full lg:min-w-[500px] min-w-[300px] lg:min-h-[30vh] min-h-[300px] rounded-lg border-2 border-solid border-gray-300 flex flex-col overflow-hidden"
                     >
                         <div className="bg-gray-300 handle hover:bg-gray-200 transition duration-300">
                             <div className='flex w-full'>

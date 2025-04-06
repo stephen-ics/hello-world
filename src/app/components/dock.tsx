@@ -9,7 +9,7 @@ export default function Dock() {
             style={{ backgroundColor: 'rgba(249, 250, 251, 0.70)' }} // gray-50 with 60% opacity
             >
                 <div className='mx-4'>
-                    <TerminalApp />
+                    <TerminalApp isDock={true} />
                 </div>
             </div>
         </div>

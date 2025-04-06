@@ -2,7 +2,7 @@ const animateAppOpen = async (controls) => {
     await controls.start({
         filter: ['brightness(1)', 'brightness(0.5)', 'brightness(0.5)'],
         transition: {
-            duration: 0.3,
+            duration: 0.2,
             ease: 'easeOut'
         }
     });
