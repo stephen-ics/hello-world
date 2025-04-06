@@ -7,22 +7,25 @@ import { Resizable } from 'react-resizable';
 import 'react-resizable/css/styles.css';
 import Draggable from 'react-draggable';
 import HoverableImage from './hoverableImage';
+import TerminalInput from './terminalInput'
 
 export default function Terminal() {
     const [size, setSize] = useState({ width: 400, height: 300 });
-    const [position, setPosition] = useState(null); // null until set
-    const [mounted, setMounted] = useState(false); // delay rendering
+    const [position, setPosition] = useState(null);
+    const [mounted, setMounted] = useState(false);
     const dispatch = useDispatch();
+
+    const containerRef = useRef(null);
     const dragRef = useRef(null);
 
     useEffect(() => {
         const x = window.innerWidth / 2 - (size.width / 2);
         const y = window.innerHeight / 2 - size.height;
         setPosition({ x, y });
-        setMounted(true); // now safe to render
+        setMounted(true);
     }, []);
 
-    if (!mounted || position === null) return null; // prevent snap
+    if (!mounted || position === null) return null;
 
     function handleClickRed() {
         dispatch(closeTerminal());
@@ -87,10 +90,10 @@ export default function Terminal() {
                                 </div>
                             </div>
                         </div>
-                        <div className="flex grow">
-                            <textarea className='m-4 w-full'>
-
-                            </textarea>
+                        <div ref={containerRef} className="flex grow m-4">
+                            <TerminalInput 
+                                containerRef={containerRef}
+                            />
                         </div>
                     </div>
                 </Resizable>
