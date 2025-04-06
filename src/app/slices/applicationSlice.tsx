@@ -4,7 +4,12 @@ export const applicationSlice = createSlice({
     name: 'application',
     initialState: {
         terminalOpen: true,
-        terminalHide: false
+        terminalHide: false,
+        terminalFullscreen: false,
+        terminalOriginalWidth: 0,
+        terminalOriginalHeight: 0,
+        terminalOriginalX: 0,
+        terminalOriginalY: 0,
     },
 
     reducers: {
@@ -20,8 +25,18 @@ export const applicationSlice = createSlice({
         hideTerminal: state => {
             state.terminalHide = true;
         },
+        maximizeTerminal: (state, action) => {
+            state.terminalFullscreen = true;
+            state.terminalOriginalWidth = action.payload.width;
+            state.terminalOriginalHeight = action.payload.height;
+            state.terminalOriginalX = action.payload.x;
+            state.terminalOriginalY = action.payload.y;
+        },
+        minimizeTerminal: state => {
+            state.terminalFullscreen = false;
+        }
     }
 })
 
-export const { openTerminal, closeTerminal, showTerminal, hideTerminal  } = applicationSlice.actions
+export const { openTerminal, closeTerminal, showTerminal, hideTerminal, maximizeTerminal, minimizeTerminal  } = applicationSlice.actions
 export default applicationSlice.reducer
