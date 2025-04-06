@@ -3,7 +3,8 @@ import { createSlice } from '@reduxjs/toolkit'
 export const applicationSlice = createSlice({
     name: 'application',
     initialState: {
-        terminalOpen: true
+        terminalOpen: true,
+        terminalHide: false
     },
 
     reducers: {
@@ -12,9 +13,15 @@ export const applicationSlice = createSlice({
         },
         closeTerminal: state => {
             state.terminalOpen = false
-        }
+        },
+        showTerminal: state => {
+            state.terminalHide = false;
+        },
+        hideTerminal: state => {
+            state.terminalHide = true;
+        },
     }
 })
 
-export const { openTerminal, closeTerminal } = applicationSlice.actions
+export const { openTerminal, closeTerminal, showTerminal, hideTerminal  } = applicationSlice.actions
 export default applicationSlice.reducer

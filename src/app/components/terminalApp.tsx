@@ -1,32 +1,30 @@
 import React from 'react'
 import { useSelector, useDispatch } from 'react-redux'
-import { openTerminal } from '../slices/applicationSlice'
+import { openTerminal, showTerminal } from '../slices/applicationSlice'
 import { addHistory } from '../slices/terminalSlice'
 import Image from 'next/image'
+import { animateAppOpen, animateAppClose } from '../animations/appAnimations'
 import { motion, useAnimation } from 'framer-motion'
 
 export default function Terminal() {
     const terminalOpen = useSelector(state => state.application.terminalOpen)
-
-    const dispatch = useDispatch();
     const controls = useAnimation();
 
+    const dispatch = useDispatch();
+
     const handleClick = async () => {
-        await controls.start({
-            y: [0, -10, 0],
-            transition: {
-                duration: 0.6,
-                times: [0, 0.5, 1],
-                ease: 'easeOut'
-            }
-        });
-
-        await new Promise(resolve => setTimeout(resolve, 500));
-
         if(terminalOpen === false) {
+            await animateAppClose(controls);
+    
+            await new Promise(resolve => setTimeout(resolve, 500));
+
             dispatch(openTerminal());
             dispatch(addHistory("begin message"))
+        } else {
+            await animateAppOpen(controls);
         }
+
+        dispatch(showTerminal());
     }
 
     return (

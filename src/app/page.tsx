@@ -8,6 +8,7 @@ import { getImageProps } from 'next/image'
 
 export default function Home() {
   const terminalOpen = useSelector(state => state.application.terminalOpen)
+  const terminalHide = useSelector(state => state.application.terminalHide)
   const inputRef = useRef(null);
 
   function getBackgroundImage(srcSet = '') {
@@ -41,7 +42,7 @@ export default function Home() {
       Hello World!
 
 
-      {terminalOpen &&
+      {(terminalOpen && !terminalHide) &&
         <Terminal inputRef={inputRef}/>
       }
       
