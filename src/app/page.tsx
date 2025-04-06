@@ -38,17 +38,20 @@ export default function Home() {
   }
 
   return (
-    <div className='h-screen w-screen bg-blue-100' style={style}>
+    <div className='h-screen w-screen bg-blue-100 relative' style={style}>
 
 
 
       {(terminalOpen && !terminalHide) &&
-        <Terminal inputRef={inputRef}/>
+        <div className='relative z-10'>
+          <Terminal inputRef={inputRef}/>
+        </div>
       }
       
       <div className='absolute top-[30px] left-[30px]'>
         <TerminalApp />
       </div>
+      
       <Dock />
     </div>
   );

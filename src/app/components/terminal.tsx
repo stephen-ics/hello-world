@@ -9,6 +9,7 @@ import 'react-resizable/css/styles.css';
 import Draggable from 'react-draggable';
 import HoverableImage from './hoverableImage';
 import TerminalInput from './terminalInput'
+import Image from 'next/image'
 
 export default function Terminal({ inputRef }) {
     const [size, setSize] = useState({ width: 500, height: 300 });
@@ -36,6 +37,14 @@ export default function Terminal({ inputRef }) {
     function handleClickYellow() {
         dispatch(hideTerminal());
     }
+
+    function handleClickGreen() {
+        setSize({
+          width: window.innerWidth,
+          height: window.innerHeight
+        });
+        setPosition({ x: 0, y: 0 });
+      }
 
     const onResize = (event, { size }) => {
         setSize(size);
@@ -94,10 +103,18 @@ export default function Terminal({ inputRef }) {
                                         width={500}
                                         height={500}
                                         alt="green terminal icon"
+                                        handleClick={handleClickGreen}
                                     />
                                 </div>
                                 <div className="flex justify-center w-full mr-[12%] items-center">
-                                    <p>📁 Stephen Ni - zsh</p>
+                                    <Image 
+                                        src="/terminal_icons/terminal_folder.png"
+                                        width={15}
+                                        height={15}
+                                        alt="terminal folder"
+                                        className='mr-2'
+                                    />
+                                    <p>Stephen Ni - zsh</p>
                                 </div>
                             </div>
                         </div>
