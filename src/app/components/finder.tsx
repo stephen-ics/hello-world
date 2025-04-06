@@ -103,7 +103,7 @@ export default function Finder({ inputRef }) {
                         style={{ width: '100%', height: '100%' }}
                         className={"bg-gray-50 w-full lg:min-w-[500px] min-w-[300px] lg:min-h-[30vh] min-h-[300px] border-2 border-solid border-gray-300 flex overflow-hidden text-sm" + (terminalFullscreen ? " rounded-none" : " rounded-lg")}
                     >
-                        <div className="bg-gray-300 handle hover:bg-gray-200 transition duration-300 w-1/4">
+                        <div className="bg-gray-300 hover:bg-gray-300/80 handle transition duration-300 w-1/4">
                             <div className='flex flex-col m-3'>
                                 <div className="flex w-full">
                                     <div className="flex w-5/9 max-w-[4vw] items-center">
@@ -160,6 +160,14 @@ export default function Finder({ inputRef }) {
                                         </div>
                                     </div>
                                 </div>
+                            </div>
+                        </div>
+                        <div className='w-full h-full'>
+                            <div className='w-full h-1/8 bg-gray-200 handle hover:bg-gray-200/80 transition duration-300'>
+
+                            </div>
+                            <div>
+                                
                             </div>
                         </div>
                     </div>

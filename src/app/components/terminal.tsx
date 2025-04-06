@@ -98,7 +98,7 @@ export default function Terminal({ inputRef }) {
                         style={{ width: '100%', height: '100%' }}
                         className={"bg-gray-50 w-full lg:min-w-[500px] min-w-[300px] lg:min-h-[30vh] min-h-[300px] border-2 border-solid border-gray-300 flex flex-col overflow-hidden" + (terminalFullscreen ? " rounded-none" : " rounded-lg")}
                     >
-                        <div className="bg-gray-300 handle hover:bg-gray-200 transition duration-300">
+                        <div className="bg-gray-300 handle hover:bg-gray-300/80 transition duration-300">
                             <div className="flex w-full">
                                 <div className="flex w-1/6 max-w-[3vw] m-2 items-center">
                                     <HoverableImage 
