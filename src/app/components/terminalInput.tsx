@@ -5,7 +5,8 @@ import { addHistory } from '../slices/terminalSlice'
 
 export default function TerminalInput({ containerRef, inputRef }) {
     const [command, setCommand] = useState('');
-    const history = useSelector(state => state.terminal.history)
+    const history = useSelector(state => state.terminal.history);
+    const directory = useSelector(state => state.terminal.directory);
 
     const dispatch = useDispatch();
     const shell = useShell();
@@ -17,7 +18,7 @@ export default function TerminalInput({ containerRef, inputRef }) {
     function handleSubmit(event) {
         if (event.key === 'Enter') {
             event.preventDefault();
-            dispatch(addHistory(`visitor@stephenni.com ~ % ${command}`));
+            dispatch(addHistory(`visitor@stephenni.com ${directory} % ${command}`));
         
             setCommand('');
             shell(command);
@@ -46,7 +47,7 @@ export default function TerminalInput({ containerRef, inputRef }) {
                 ))}
             </div>
             <div className=''>
-                <span>visitor@stephenni.com ~ % </span>
+                <span>visitor@stephenni.com {directory} % </span>
                 <input
                     ref={inputRef}
                     name="command"
