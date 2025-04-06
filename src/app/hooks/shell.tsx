@@ -1,9 +1,11 @@
-import { useDispatch } from 'react-redux'
+import { useSelector, useDispatch } from 'react-redux'
 import { addHistory, clearHistory } from '../slices/terminalSlice'
+import { addDirectory, removeDirectory } from '../slices/terminalSlice';
 import { closeTerminal } from '../slices/applicationSlice'
 
 export default function useShell() {
     const dispatch = useDispatch();
+    const directory = useSelector(state => state.terminal.directory);
 
     return function handleCommand(command: string) {
         if(command == null) {
@@ -28,12 +30,33 @@ export default function useShell() {
                 dispatch(closeTerminal())
             }, 1000);
         } else if (args[0] === 'ls') {
-            dispatch(addHistory('Professional Summary\nMe!'));
+            if(directory === "") {
+                dispatch(addHistory('professional-summary\nme!'));
+            }
         } else if(args[0] === 'cd') {
-            dispatch(addHistory(`cd: no such file or directory: ${command}`));
+            if(args.length == 1 || args[1] == '') {
+                return;
+            }
+
+            args[1] = args[1].toLowerCase();
+
+            if(args[1] === "..") {
+                dispatch(removeDirectory());
+                return;
+            }
+
+            if(directory === "") {
+                if(args[1] === "professional-summary") {
+                    dispatch(addDirectory("professional-summary"));
+                } else if(args[1] === "me!") {
+                    dispatch(addDirectory("me!"));
+                }
+            } else {
+                dispatch(addHistory(`cd: no such file or directory: ${args[1]}`));
+            }
         }
         else if(args[0] === 'cat') {
-            dispatch(addHistory(`cat: no such file or directory: ${command}`)); 
+            dispatch(addHistory(`cat: no such file or directory: ${args[1]}`)); 
         }   else {
             dispatch(addHistory(`shell: command not found: ${command}`));
         }
