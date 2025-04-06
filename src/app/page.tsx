@@ -39,14 +39,14 @@ export default function Home() {
 
   return (
     <div className='h-screen w-screen bg-blue-100' style={style}>
-      Hello World!
+
 
 
       {(terminalOpen && !terminalHide) &&
         <Terminal inputRef={inputRef}/>
       }
       
-      <div className='absolute top-[0] m-4'>
+      <div className='absolute top-[50px] left-[30px] z-10'>
         <TerminalApp />
       </div>
       <Dock />
