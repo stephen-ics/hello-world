@@ -2,8 +2,8 @@
 
 import { useState, useRef, useEffect } from 'react';
 import { useDispatch } from 'react-redux'
-import { closeTerminal } from '../slices/applicationSlice'
-import { addHistory, clearHistory } from '../slices/terminalSlice'
+import { closeTerminal, hideTerminal } from '../slices/applicationSlice'
+import { clearHistory } from '../slices/terminalSlice'
 import { Resizable } from 'react-resizable';
 import 'react-resizable/css/styles.css';
 import Draggable from 'react-draggable';
@@ -11,7 +11,7 @@ import HoverableImage from './hoverableImage';
 import TerminalInput from './terminalInput'
 
 export default function Terminal({ inputRef }) {
-    const [size, setSize] = useState({ width: 400, height: 300 });
+    const [size, setSize] = useState({ width: 500, height: 300 });
     const [position, setPosition] = useState(null);
     const [mounted, setMounted] = useState(false);
     const dispatch = useDispatch();
@@ -31,6 +31,10 @@ export default function Terminal({ inputRef }) {
     function handleClickRed() {
         dispatch(closeTerminal());
         dispatch(clearHistory());
+    }
+
+    function handleClickYellow() {
+        dispatch(hideTerminal());
     }
 
     const onResize = (event, { size }) => {
@@ -63,11 +67,11 @@ export default function Terminal({ inputRef }) {
                 >
                     <div
                         style={{ width: size.width, height: size.height }}
-                        className="bg-gray-50 w-full lg:min-w-[20vw] min-w-[300px] lg:min-h-[30vh] min-h-[200px] rounded-lg border-2 border-solid border-gray-300 flex flex-col m-4 overflow-hidden"
+                        className="bg-gray-50 w-full lg:min-w-[500px] min-w-[300px] lg:min-h-[30vh] min-h-[300px] rounded-lg border-2 border-solid border-gray-300 flex flex-col m-4 overflow-hidden"
                     >
                         <div className="bg-gray-300 handle hover:bg-gray-200 transition duration-300">
                             <div className='flex w-full'>
-                                <div className="flex w-1/6 max-w-[4vw] m-2 items-center">
+                                <div className="flex w-1/6 max-w-[3vw] m-2 items-center">
                                     <HoverableImage 
                                         srcDefault="/terminal_icons/terminal_red.png"
                                         srcHover="/terminal_icons/terminal_red_hover.png"
@@ -82,6 +86,7 @@ export default function Terminal({ inputRef }) {
                                         width={500}
                                         height={500}
                                         alt="yellow terminal icon"
+                                        handleClick={handleClickYellow}
                                     />
                                     <HoverableImage 
                                         srcDefault="/terminal_icons/terminal_green.png"
