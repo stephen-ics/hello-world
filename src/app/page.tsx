@@ -43,13 +43,16 @@ export default function Home() {
 
 
       {(terminalOpen && !terminalHide) &&
-        <div className='relative z-10'>
+        <div className='relative z-10 w-0 h-0'>
           <Terminal inputRef={inputRef}/>
         </div>
       }
       
-      <div className='absolute top-[30px] left-[30px]'>
+      <div className='absolute top-[30px] left-[30px] text-white font-semibold text-xs flex flex-col items-center'>
         <TerminalApp />
+        <p>
+          Terminal
+        </p>
       </div>
       
       <Dock />
