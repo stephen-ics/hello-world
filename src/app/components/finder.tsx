@@ -163,8 +163,30 @@ export default function Finder({ inputRef }) {
                             </div>
                         </div>
                         <div className='w-full h-full'>
-                            <div className='w-full h-1/8 bg-gray-200 handle hover:bg-gray-200/80 transition duration-300'>
-
+                            <div className='w-full h-1/8 bg-gray-200 handle hover:bg-gray-200/80 transition duration-300 flex items-center'>
+                                <div className='flex items-center ml-4'>
+                                    <div className='hover:bg-gray-300/80 duration-300 rounded-md p-2'>
+                                        <Image 
+                                            src='/app_icons/app_downloads.png'
+                                            width={15}
+                                            height={15}
+                                            alt='app active'
+                                            className='object-contain'
+                                        />
+                                    </div>
+                                    <div className='hover:bg-gray-300/80 duration-300 rounded-md p-2'>
+                                        <Image 
+                                            src='/app_icons/app_downloads.png'
+                                            width={15}
+                                            height={15}
+                                            alt='app active'
+                                            className='object-contain'
+                                        />
+                                    </div>
+                                    <div className='p-2'>
+                                        HSALDKAS:DL
+                                    </div>
+                                </div>
                             </div>
                             <div>
                                 
