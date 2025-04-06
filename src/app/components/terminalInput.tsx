@@ -1,9 +1,14 @@
 import { useState, useEffect } from 'react';
-import { shell } from '../functions/shell'
+import { useSelector, useDispatch } from 'react-redux'
+import useShell from '../hooks/shell'
+import { addHistory } from '../slices/terminalSlice'
 
 export default function TerminalInput({ containerRef, inputRef }) {
     const [command, setCommand] = useState('');
-    const [history, setHistory] = useState([]);
+    const history = useSelector(state => state.terminal.history)
+
+    const dispatch = useDispatch();
+    const shell = useShell();
 
     function handleChange(event) {
         setCommand(event.target.value);
@@ -12,10 +17,10 @@ export default function TerminalInput({ containerRef, inputRef }) {
     function handleSubmit(event) {
         if (event.key === 'Enter') {
             event.preventDefault();
-            setHistory(prevHistory => [...prevHistory, `$ ${command}`]);
+            dispatch(addHistory(`$ ${command}`));
         
             setCommand('');
-            shell(command, setHistory);
+            shell(command);
 
             containerRef.current.scrollTo({
                 top: containerRef.current.scrollHeight,
@@ -35,7 +40,7 @@ export default function TerminalInput({ containerRef, inputRef }) {
         <div className='m-2 text-xs'>
             <div>Command: {command}</div>
             <div>
-                {history.map((cmd, index) => (
+                {history && history.map((cmd, index) => (
                     <div key={index}>
                         <span>{cmd}</span>
                     </div>
