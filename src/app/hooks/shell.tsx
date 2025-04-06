@@ -23,8 +23,16 @@ export default function useShell() {
         if (args[0] === 'clear') {
             dispatch(clearHistory());
         } else if (args[0] === 'help') {
-            dispatch(addHistory(`cat - view a file\ncd - navigate into a directory\nclear - clear the terminal\nexit - exit the terminal\nhelp - display this message\nls - list contents of the current directory`))
-        } else if (args[0] === 'exit') {
+            dispatch(addHistory(`cat - view a file\ncd - navigate into a directory (cd .. to navigate backwards!)\nclear - clear the terminal\necho - print a message\nexit - exit the terminal\nhelp - display this message\nls - list contents of the current directory`));
+        } else if(args[0] === 'echo') {
+            if(args.length == 1) {
+                dispatch(addHistory("\n"));
+                return;
+            }
+
+            dispatch(addHistory(`${args[1]}`));
+        }
+        else if (args[0] === 'exit') {
             dispatch(addHistory('Closing terminal...'));
             setTimeout(() => {
                 dispatch(closeTerminal())
@@ -34,9 +42,9 @@ export default function useShell() {
             if(directory === "") {
                 dispatch(addHistory('professional-summary\nme!'));
             } else if(directory === " professional-summary") {
-                dispatch(addHistory('education.md\nexperiences.md\nprojects.md\nskills.md'))
+                dispatch(addHistory('education.md\nexperiences.md\nprojects.md\nskills.md'));
             } else if(directory === " me!") {
-                dispatch(addHistory("about_me.md\nbooks.md\nthoughts.md"))
+                dispatch(addHistory("about_me.md\nbooks.md\nthoughts.md"));
             }
         } else if(args[0] === 'cd') {
             if(args.length == 1 || args[1] == '') {
