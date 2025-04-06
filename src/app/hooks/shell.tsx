@@ -23,15 +23,20 @@ export default function useShell() {
         if (args[0] === 'clear') {
             dispatch(clearHistory());
         } else if (args[0] === 'help') {
-            dispatch(addHistory('Help command!'));
+            dispatch(addHistory(`cat - view a file\ncd - navigate into a directory\nclear - clear the terminal\nexit - exit the terminal\nhelp - display this message\nls - list contents of the current directory`))
         } else if (args[0] === 'exit') {
             dispatch(addHistory('Closing terminal...'));
             setTimeout(() => {
                 dispatch(closeTerminal())
             }, 1000);
         } else if (args[0] === 'ls') {
+            console.log(directory);
             if(directory === "") {
                 dispatch(addHistory('professional-summary\nme!'));
+            } else if(directory === " professional-summary") {
+                dispatch(addHistory('education.md\nexperiences.md\nprojects.md\nskills.md'))
+            } else if(directory === " me!") {
+                dispatch(addHistory("about_me.md\nbooks.md\nthoughts.md"))
             }
         } else if(args[0] === 'cd') {
             if(args.length == 1 || args[1] == '') {
