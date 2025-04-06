@@ -1,12 +1,15 @@
 import React from 'react'
-import { useDispatch } from 'react-redux'
+import { useSelector, useDispatch } from 'react-redux'
 import { openTerminal } from '../slices/applicationSlice'
+import { addHistory } from '../slices/terminalSlice'
 import Image from 'next/image'
 import { motion, useAnimation } from 'framer-motion'
 
 export default function Terminal() {
-    const dispatch = useDispatch()
-    const controls = useAnimation()
+    const terminalOpen = useSelector(state => state.application.terminalOpen)
+
+    const dispatch = useDispatch();
+    const controls = useAnimation();
 
     const handleClick = async () => {
         await controls.start({
@@ -16,11 +19,14 @@ export default function Terminal() {
                 times: [0, 0.5, 1],
                 ease: 'easeOut'
             }
-        })
+        });
 
-        await new Promise(resolve => setTimeout(resolve, 500))
+        await new Promise(resolve => setTimeout(resolve, 500));
 
-        dispatch(openTerminal())
+        if(terminalOpen === false) {
+            dispatch(openTerminal());
+            dispatch(addHistory("begin message"))
+        }
     }
 
     return (

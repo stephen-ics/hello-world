@@ -3,7 +3,7 @@
 import { useState, useRef, useEffect } from 'react';
 import { useDispatch } from 'react-redux'
 import { closeTerminal } from '../slices/applicationSlice'
-import { addHistory } from '../slices/terminalSlice'
+import { addHistory, clearHistory } from '../slices/terminalSlice'
 import { Resizable } from 'react-resizable';
 import 'react-resizable/css/styles.css';
 import Draggable from 'react-draggable';
@@ -26,14 +26,11 @@ export default function Terminal({ inputRef }) {
         setMounted(true);
     }, []);
 
-    useEffect(() => {
-        dispatch(addHistory("begin message"));
-    })
-
     if (!mounted || position === null) return null;
 
     function handleClickRed() {
         dispatch(closeTerminal());
+        dispatch(clearHistory());
     }
 
     const onResize = (event, { size }) => {

@@ -3,7 +3,7 @@ import { createSlice } from '@reduxjs/toolkit'
 export const terminalSlice = createSlice({
     name: 'terminal',
     initialState: {
-        history: []
+        history: ["begin message"]
     },
 
     reducers: {

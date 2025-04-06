@@ -38,7 +38,6 @@ export default function TerminalInput({ containerRef, inputRef }) {
 
     return (
         <div className='m-2 text-xs'>
-            <div>Command: {command}</div>
             <div>
                 {history && history.map((cmd, index) => (
                     <div key={index}>
