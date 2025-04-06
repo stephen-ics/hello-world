@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import { shell } from '../functions/shell'
 
 export default function TerminalInput({ containerRef, inputRef }) {
-    const [command, setCommand] = useState('$ ');
+    const [command, setCommand] = useState('');
     const [history, setHistory] = useState([]);
 
     function handleChange(event) {
@@ -12,9 +12,9 @@ export default function TerminalInput({ containerRef, inputRef }) {
     function handleSubmit(event) {
         if (event.key === 'Enter') {
             event.preventDefault();
-            setHistory(prevHistory => [...prevHistory, command]);
+            setHistory(prevHistory => [...prevHistory, `$ ${command}`]);
         
-            setCommand('$ ');
+            setCommand('');
             shell(command, setHistory);
 
             containerRef.current.scrollTo({
@@ -42,6 +42,7 @@ export default function TerminalInput({ containerRef, inputRef }) {
                 ))}
             </div>
             <div className=''>
+                <span>$ </span>
                 <input
                     ref={inputRef}
                     name="command"

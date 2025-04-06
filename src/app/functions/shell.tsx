@@ -3,7 +3,7 @@ export function shell(
     setHistory: (val: string) => void
 ) {
     const args = command.split(' ');
-    args.shift();
+
     args[0] = args[0].toLowerCase();
 
     console.log(args[0]);
