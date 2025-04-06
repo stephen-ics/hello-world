@@ -1,41 +1,41 @@
 import React from 'react'
 import { useSelector, useDispatch } from 'react-redux'
-import { openFolder, showFolder } from '../slices/applicationSlice'
+import { openFinder, showFinder } from '../slices/applicationSlice'
 import { addHistory } from '../slices/terminalSlice'
 import Image from 'next/image'
 import { animateAppOpen, animateAppClose } from '../animations/appAnimations'
 import { motion, useAnimation } from 'framer-motion'
 
-export default function FolderApp({ isDock = false }) {
-    const folderOpen = useSelector(state => state.application.folderOpen)
+export default function FinderApp({ isDock = false }) {
+    const finderOpen = useSelector(state => state.application.finderOpen)
     const controls = useAnimation();
 
     const dispatch = useDispatch();
 
     const handleClick = async () => {
-        if(folderOpen === false) {
+        if(finderOpen === false) {
             await animateAppClose(controls);
     
             await new Promise(resolve => setTimeout(resolve, 500));
 
-            dispatch(openFolder());
+            dispatch(openFinder());
         } else {
             await animateAppOpen(controls);
         }
 
-        dispatch(showFolder());
+        dispatch(showFinder());
     }
 
     return (
         <motion.div animate={controls} onClick={handleClick}>
             <div className='relative flex flex-col items-center'>
                 <Image
-                    src='/terminal_icons/terminal_folder.png'
+                    src='/app_icons/app_finder.png'
                     width={50}
                     height={50}
                     alt='terminal icon'
                 />
-                {(folderOpen && isDock) &&
+                {(finderOpen && isDock) &&
                     <div className='absolute bottom-[-1px] rounded-full opacity-75'>
                         <Image 
                             src='/app_icons/app_active.png'

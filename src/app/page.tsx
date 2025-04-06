@@ -2,7 +2,8 @@
 import { useRef } from 'react'
 import Terminal from '@/app/components/terminal'
 import TerminalApp from '@/app/components/terminalApp'
-import FolderApp from '@/app/components/folderApp'
+import Finder from '@/app/components/finder'
+import FinderApp from '@/app/components/finderApp'
 import Dock from '@/app/components/dock'
 import { useSelector } from 'react-redux'
 import { getImageProps } from 'next/image'
@@ -10,6 +11,10 @@ import { getImageProps } from 'next/image'
 export default function Home() {
   const terminalOpen = useSelector(state => state.application.terminalOpen)
   const terminalHide = useSelector(state => state.application.terminalHide)
+
+  const finderOpen = useSelector(state => state.application.finderOpen)
+  const finderHide = useSelector(state => state.application.finderHide)
+
   const inputRef = useRef(null);
 
   function getBackgroundImage(srcSet = '') {
@@ -45,6 +50,12 @@ export default function Home() {
           <Terminal inputRef={inputRef}/>
         </div>
       }
+
+      {(finderOpen && !finderHide) &&
+        <div className='relative z-10 w-0 h-0'>
+          <Finder inputRef={inputRef}/>
+        </div>
+      }
       
       <div className='absolute top-[30px] left-[30px] text-white font-semibold text-xs flex flex-col gap-4'>
         <div className='flex flex-col items-center'>
@@ -54,9 +65,9 @@ export default function Home() {
           </p>
         </div>
         <div className='flex flex-col items-center'>
-          <FolderApp />
+          <FinderApp />
           <p>
-            professional_career
+            Finder
           </p>
         </div>
       </div>
