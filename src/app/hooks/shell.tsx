@@ -19,6 +19,8 @@ export default function useShell() {
     
         if (args[0] === 'clear') {
             dispatch(clearHistory());
+        } else if (args[0] === 'help') {
+            dispatch(addHistory('Help command!'));
         } else {
             dispatch(addHistory(`shell: command not found: ${command}`));
         }

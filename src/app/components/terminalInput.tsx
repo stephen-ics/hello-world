@@ -17,7 +17,7 @@ export default function TerminalInput({ containerRef, inputRef }) {
     function handleSubmit(event) {
         if (event.key === 'Enter') {
             event.preventDefault();
-            dispatch(addHistory(`$ ${command}`));
+            dispatch(addHistory(`visitor@stephenni.com ~ %$ ${command}`));
         
             setCommand('');
             shell(command);
@@ -46,7 +46,7 @@ export default function TerminalInput({ containerRef, inputRef }) {
                 ))}
             </div>
             <div className=''>
-                <span>$ </span>
+                <span>visitor@stephenni.com ~ % </span>
                 <input
                     ref={inputRef}
                     name="command"
