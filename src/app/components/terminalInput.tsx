@@ -12,6 +12,7 @@ export default function TerminalInput({ containerRef, inputRef }) {
         if (event.key === 'Enter') {
             event.preventDefault();
             setHistory(prevHistory => [...prevHistory, command]);
+                        
             setCommand('');
 
 
@@ -30,22 +31,29 @@ export default function TerminalInput({ containerRef, inputRef }) {
     
 
     return (
-        <div className=''>
+        <div className='m-2'>
             <div>Command: {command}</div>
             <div>
                 {history.map((cmd, index) => (
-                    <div key={index}>{cmd}</div>
+                    <div key={index}>
+                        <span>$ </span>
+                        <span>{cmd}</span>
+                    </div>
                 ))}
             </div>
-            <input
-                ref={inputRef}
-                name="command"
-                type="text"
-                value={command}
-                onChange={handleChange}
-                onKeyDown={handleSubmit}
-                autoFocus
-            />
+            <div className=''>
+                <span>$ </span>
+                <input
+                    ref={inputRef}
+                    name="command"
+                    type="text"
+                    value={command}
+                    onChange={handleChange}
+                    onKeyDown={handleSubmit}
+                    autoFocus
+                    className='border-none outline-none'
+                />
+            </div>
         </div>
     );
 }

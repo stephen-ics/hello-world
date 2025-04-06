@@ -47,6 +47,10 @@ export default function Terminal({ inputRef }) {
         setPosition({ x: newX, y: newY });
     };
 
+    function handleContainerClick(event) {
+        inputRef.current.focus();
+    }
+
     return (
         <Draggable nodeRef={dragRef} handle=".handle" position={position} onDrag={handleDrag}>
             <div ref={dragRef}>
@@ -90,7 +94,7 @@ export default function Terminal({ inputRef }) {
                                 </div>
                             </div>
                         </div>
-                        <div ref={containerRef} className="flex grow m-4 bg-red-100 overflow-y-auto">
+                        <div ref={containerRef} onClick={handleContainerClick} className="flex grow overflow-y-auto">
                             <TerminalInput 
                                 containerRef={containerRef}
                                 inputRef={inputRef}
