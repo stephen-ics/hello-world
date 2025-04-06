@@ -2,7 +2,7 @@
 
 import { useState, useRef, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux'
-import { closeTerminal, hideTerminal, maximizeTerminal, minimizeTerminal, openDesktopTab, openDownloadsTab } from '../slices/applicationSlice'
+import { closeFinder, hideFinder, maximizeTerminal, minimizeTerminal, openDesktopTab, openDownloadsTab } from '../slices/applicationSlice'
 import { clearHistory } from '../slices/terminalSlice'
 import { Resizable } from 'react-resizable';
 import 'react-resizable/css/styles.css';
@@ -39,12 +39,11 @@ export default function Finder({ inputRef }) {
     if (!mounted) return null;
 
     function handleClickRed() {
-        dispatch(closeTerminal());
-        dispatch(clearHistory());
+        dispatch(closeFinder());
     }
 
     function handleClickYellow() {
-        dispatch(hideTerminal());
+        dispatch(hideFinder());
     }
 
     function handleClickGreen() {
