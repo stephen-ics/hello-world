@@ -92,45 +92,64 @@ export default function Finder({ inputRef }) {
                 <Resizable width={size.width} height={size.height} onResize={onResize}>
                     <div
                         style={{ width: '100%', height: '100%' }}
-                        className={"bg-gray-50 w-full lg:min-w-[500px] min-w-[300px] lg:min-h-[30vh] min-h-[300px] border-2 border-solid border-gray-300 flex flex-col overflow-hidden" + (terminalFullscreen ? " rounded-none" : " rounded-lg")}
+                        className={"bg-gray-50 w-full lg:min-w-[500px] min-w-[300px] lg:min-h-[30vh] min-h-[300px] border-2 border-solid border-gray-300 flex overflow-hidden text-sm" + (terminalFullscreen ? " rounded-none" : " rounded-lg")}
                     >
-                        <div className="bg-gray-300 handle hover:bg-gray-200 transition duration-300">
-                            <div className="flex w-full">
-                                <div className="flex w-1/6 max-w-[3vw] m-2 items-center">
-                                    <HoverableImage 
-                                        srcDefault="/terminal_icons/terminal_red.png"
-                                        srcHover="/terminal_icons/terminal_red_hover.png"
-                                        width={500}
-                                        height={500}
-                                        alt="red terminal icon"
-                                        handleClick={handleClickRed}
-                                    />
-                                    <HoverableImage 
-                                        srcDefault="/terminal_icons/terminal_yellow.png"
-                                        srcHover="/terminal_icons/terminal_yellow_hover.png"
-                                        width={500}
-                                        height={500}
-                                        alt="yellow terminal icon"
-                                        handleClick={handleClickYellow}
-                                    />
-                                    <HoverableImage 
-                                        srcDefault="/terminal_icons/terminal_green.png"
-                                        srcHover="/terminal_icons/terminal_green_hover.png"
-                                        width={500}
-                                        height={500}
-                                        alt="green terminal icon"
-                                        handleClick={handleClickGreen}
-                                    />
+                        <div className="bg-gray-300 handle hover:bg-gray-200 transition duration-300 w-1/4">
+                            <div className='flex flex-col m-3'>
+                                <div className="flex w-full">
+                                    <div className="flex w-5/9 max-w-[4vw] items-center">
+                                        <HoverableImage 
+                                            srcDefault="/terminal_icons/terminal_red.png"
+                                            srcHover="/terminal_icons/terminal_red_hover.png"
+                                            width={500}
+                                            height={500}
+                                            alt="red terminal icon"
+                                            handleClick={handleClickRed}
+                                        />
+                                        <HoverableImage 
+                                            srcDefault="/terminal_icons/terminal_yellow.png"
+                                            srcHover="/terminal_icons/terminal_yellow_hover.png"
+                                            width={500}
+                                            height={500}
+                                            alt="yellow terminal icon"
+                                            handleClick={handleClickYellow}
+                                        />
+                                        <HoverableImage 
+                                            srcDefault="/terminal_icons/terminal_green.png"
+                                            srcHover="/terminal_icons/terminal_green_hover.png"
+                                            width={500}
+                                            height={500}
+                                            alt="green terminal icon"
+                                            handleClick={handleClickGreen}
+                                        />
+                                    </div>
                                 </div>
-                                <div className="flex justify-center w-full mr-[12%] items-center">
-                                    <Image 
-                                        src="/terminal_icons/terminal_folder.png"
-                                        width={15}
-                                        height={15}
-                                        alt="terminal folder"
-                                        className="mr-2"
-                                    />
-                                    <p>Stephen Ni - zsh</p>
+                                <div className='flex flex-col my-3'>
+                                    <div className='text-sm font-semibold text-gray-700 opacity-50'>
+                                        Favourite
+                                    </div>
+                                    <div className='flex p-1 px-2 bg-black rounded-md' style={{ backgroundColor: 'rgba(185, 187, 187, 0.7)' }}>
+                                        <Image 
+                                            src='/app_icons/app_desktop.png'
+                                            width={15}
+                                            height={15}
+                                            alt='app active'
+                                            className='object-contain'
+                                        />
+                                        <div className='mx-2'>Desktop</div>
+                                    </div>
+                                    <div className='flex p-1 px-2'>
+                                        <Image 
+                                            src='/app_icons/app_downloads.png'
+                                            width={15}
+                                            height={15}
+                                            alt='app active'
+                                            className='object-contain'
+                                        />
+                                        <div className='mx-2'>
+                                            Downloads
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         </div>

@@ -44,7 +44,7 @@ export default function Home() {
   }
 
   return (
-    <div className='h-screen w-screen bg-blue-100 relative' style={style}>
+    <div className='h-screen w-screen relative' style={style}>
       {(terminalOpen && !terminalHide) &&
         <div className='relative z-10 w-0 h-0'>
           <Terminal inputRef={inputRef}/>
