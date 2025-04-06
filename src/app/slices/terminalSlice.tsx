@@ -3,7 +3,7 @@ import { createSlice } from '@reduxjs/toolkit'
 export const terminalSlice = createSlice({
     name: 'terminal',
     initialState: {
-        history: ["begin message"],
+        history: ["Welcome to my world! 🐢\nType 'help' to view a list of available commands\nFeel free to click around, everything's interactive :)\nEnjoy your stay!"],
         directory: ""
     },
 
