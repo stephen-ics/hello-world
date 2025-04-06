@@ -4,7 +4,6 @@ import TerminalApp from '@/app/components/terminalApp'
 import Dock from '@/app/components/dock'
 import { useSelector } from 'react-redux'
 import { getImageProps } from 'next/image'
-import TerminalClient from "./components/terminalClient";
 
 export default function Home() {
   const terminalOpen = useSelector(state => state.application.terminalOpen)
@@ -43,7 +42,6 @@ export default function Home() {
       {terminalOpen &&
         <Terminal />
       }
-      <TerminalClient />
       
       <div className='absolute top-[0] m-4'>
         <TerminalApp />
