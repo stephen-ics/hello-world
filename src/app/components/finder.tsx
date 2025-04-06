@@ -2,13 +2,12 @@
 
 import { useState, useRef, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux'
-import { closeTerminal, hideTerminal, maximizeTerminal, minimizeTerminal } from '../slices/applicationSlice'
+import { closeTerminal, hideTerminal, maximizeTerminal, minimizeTerminal, openDesktopTab, openDownloadsTab } from '../slices/applicationSlice'
 import { clearHistory } from '../slices/terminalSlice'
 import { Resizable } from 'react-resizable';
 import 'react-resizable/css/styles.css';
 import Draggable from 'react-draggable';
 import HoverableImage from './hoverableImage';
-import TerminalInput from './terminalInput'
 import Image from 'next/image'
 import { motion } from 'framer-motion';
 
@@ -25,7 +24,9 @@ export default function Finder({ inputRef }) {
     const originalX = useSelector(state => state.application.terminalOriginalX)
     const originalY = useSelector(state => state.application.terminalOriginalY)
 
-    const containerRef = useRef(null);
+    const finderDesktopOpen = useSelector(state => state.application.finderTabDesktop)
+    const finderDownloadsOpen = useSelector(state => state.application.finderTabDownloads)
+
     const dragRef = useRef(null);
 
     useEffect(() => {
@@ -60,6 +61,14 @@ export default function Finder({ inputRef }) {
         }
 
         setTimeout(() => setAnimateTransition(false), 350);
+    }
+
+    function handleDesktopClick() {
+        dispatch(openDesktopTab());
+    }
+
+    function handleDownloadsClick() {
+        dispatch(openDownloadsTab());
     }
 
     const onResize = (event, { size: newSize }) => {
@@ -128,7 +137,7 @@ export default function Finder({ inputRef }) {
                                     <div className='text-sm font-semibold text-gray-700 opacity-50'>
                                         Favourite
                                     </div>
-                                    <div className='flex p-1 px-2 bg-black rounded-md' style={{ backgroundColor: 'rgba(185, 187, 187, 0.7)' }}>
+                                    <div className='flex p-1 px-2 rounded-md cursor-default duration-300' style={finderDesktopOpen ? { backgroundColor: 'rgba(185, 187, 187, 0.7)' } : {}} onClick={handleDesktopClick}>
                                         <Image 
                                             src='/app_icons/app_desktop.png'
                                             width={15}
@@ -138,7 +147,7 @@ export default function Finder({ inputRef }) {
                                         />
                                         <div className='mx-2'>Desktop</div>
                                     </div>
-                                    <div className='flex p-1 px-2'>
+                                    <div className='flex p-1 px-2 rounded-md cursor-default duration-300' style={finderDownloadsOpen ? { backgroundColor: 'rgba(185, 187, 187, 0.7)' } : {}} onClick={handleDownloadsClick}>
                                         <Image 
                                             src='/app_icons/app_downloads.png'
                                             width={15}

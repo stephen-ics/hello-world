@@ -13,6 +13,8 @@ export const applicationSlice = createSlice({
 
         finderOpen: false,
         finderHide: true,
+        finderTabDesktop: true,
+        finderTabDownloads: false,
     },
 
     reducers: {
@@ -51,8 +53,16 @@ export const applicationSlice = createSlice({
         hideFinder: state => {
             state.finderHide = true;
         },
+        openDesktopTab: state => {
+            state.finderTabDesktop = true;
+            state.finderTabDownloads = false;
+        },
+        openDownloadsTab: state => {
+            state.finderTabDesktop = false;
+            state.finderTabDownloads = true;
+        }
     }
 })
 
-export const { openTerminal, closeTerminal, showTerminal, hideTerminal, maximizeTerminal, minimizeTerminal, openFinder, closeFinder, showFinder, hideFinder  } = applicationSlice.actions
+export const { openTerminal, closeTerminal, showTerminal, hideTerminal, maximizeTerminal, minimizeTerminal, openFinder, closeFinder, showFinder, hideFinder, openDesktopTab, openDownloadsTab  } = applicationSlice.actions
 export default applicationSlice.reducer
