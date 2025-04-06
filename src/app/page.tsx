@@ -1,4 +1,5 @@
 "use client"
+import { useRef } from 'react'
 import Terminal from '@/app/components/terminal'
 import TerminalApp from '@/app/components/terminalApp'
 import Dock from '@/app/components/dock'
@@ -7,6 +8,7 @@ import { getImageProps } from 'next/image'
 
 export default function Home() {
   const terminalOpen = useSelector(state => state.application.terminalOpen)
+  const inputRef = useRef(null);
 
   function getBackgroundImage(srcSet = '') {
     const imageSet = srcSet
@@ -40,7 +42,7 @@ export default function Home() {
 
 
       {terminalOpen &&
-        <Terminal />
+        <Terminal inputRef={inputRef}/>
       }
       
       <div className='absolute top-[0] m-4'>

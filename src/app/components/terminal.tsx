@@ -9,7 +9,7 @@ import Draggable from 'react-draggable';
 import HoverableImage from './hoverableImage';
 import TerminalInput from './terminalInput'
 
-export default function Terminal() {
+export default function Terminal({ inputRef }) {
     const [size, setSize] = useState({ width: 400, height: 300 });
     const [position, setPosition] = useState(null);
     const [mounted, setMounted] = useState(false);
@@ -90,9 +90,10 @@ export default function Terminal() {
                                 </div>
                             </div>
                         </div>
-                        <div ref={containerRef} className="flex grow m-4">
+                        <div ref={containerRef} className="flex grow m-4 bg-red-100 overflow-y-auto">
                             <TerminalInput 
                                 containerRef={containerRef}
+                                inputRef={inputRef}
                             />
                         </div>
                     </div>
