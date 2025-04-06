@@ -10,6 +10,9 @@ export const applicationSlice = createSlice({
         terminalOriginalHeight: 0,
         terminalOriginalX: 0,
         terminalOriginalY: 0,
+
+        folderOpen: false,
+        folderHide: true,
     },
 
     reducers: {
@@ -34,9 +37,22 @@ export const applicationSlice = createSlice({
         },
         minimizeTerminal: state => {
             state.terminalFullscreen = false;
-        }
+        },
+
+        openFolder: state => {
+            state.folderOpen = true
+        },
+        closeFolder: state => {
+            state.folderOpen = false
+        },
+        showFolder: state => {
+            state.folderHide = false;
+        },
+        hideFolder: state => {
+            state.folderHide = true;
+        },
     }
 })
 
-export const { openTerminal, closeTerminal, showTerminal, hideTerminal, maximizeTerminal, minimizeTerminal  } = applicationSlice.actions
+export const { openTerminal, closeTerminal, showTerminal, hideTerminal, maximizeTerminal, minimizeTerminal, openFolder, closeFolder, showFolder, hideFolder  } = applicationSlice.actions
 export default applicationSlice.reducer
