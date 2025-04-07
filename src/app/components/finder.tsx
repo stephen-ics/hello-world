@@ -93,16 +93,20 @@ export default function Finder({ inputRef }) {
         setSelectMe(false);
     }
 
-    function handleProfessionalSummaryClick() {
+    function handleProfessionalSummaryClick(event) {
+        event.stopPropagation();
+
         if(selectProfessionalSummary === true) {
-            changeDirectory("professional-summary")
+            dispatch(changeDirectory("professional-summary"));
         } else {
             unselectAll();
             setSelectProfessionalSummary(true);
         }
     }
 
-    function handleMeClick() {
+    function handleMeClick(event) {
+        event.stopPropagation();
+
         unselectAll();
         setSelectMe(true);
     }
@@ -199,7 +203,9 @@ export default function Finder({ inputRef }) {
                             </div>
                         </div>
                         <div className='w-full h-full outline-solid outline-gray-400/40  shadow-sm outline-1'>
-                            <div className='w-full outline-solid outline-gray-300/60 outline-1 shadow-sm h-1/10 max-h-[50px] min-h-[42px] bg-gray-200 handle hover:bg-gray-200/80 transition flex items-center'>
+                            <div 
+                                className='w-full outline-solid outline-gray-300/60 outline-1 shadow-sm h-1/10 max-h-[50px] min-h-[42px] bg-gray-200 handle hover:bg-gray-200/80 transition flex items-center'
+                            >
                                 <div className='flex items-center ml-4'>
                                     <div className='hover:bg-gray-300/80 duration-300 rounded-md p-2'>
                                         <Image 
@@ -224,16 +230,33 @@ export default function Finder({ inputRef }) {
                                     </div>
                                 </div>
                             </div>
-                            <div>
-                                <div className='m-6 gap-10 flex flex-wrap'>
-                                    
-                                    <div onClick={handleProfessionalSummaryClick}>
-                                        <Folder name="professional-summary" selected={selectProfessionalSummary} />
+                            <div className='w-full h-full' onClick={unselectAll}>
+                                {(finderDirectory === "Desktop" || finderDirectory === "Downloads") &&
+                                    <div className='p-4 gap-10 flex flex-wrap'>
+                                        <div onClick={handleProfessionalSummaryClick}>
+                                            <Folder name="professional-summary" selected={selectProfessionalSummary} />
+                                        </div>
+                                        <div onClick={handleMeClick}>
+                                            <Folder name="me!" selected={selectMe} />
+                                        </div>
                                     </div>
-                                    <div onClick={handleMeClick}>
-                                        <Folder name="me!" selected={selectMe} />
+                                }
+                                {(finderDirectory === "professional-summary") &&
+                                    <div className='p-4 gap-10 flex flex-wrap'>
+                                        <div onClick={handleProfessionalSummaryClick}>
+                                            <Folder name="education.md" />
+                                        </div>
+                                        <div onClick={handleMeClick}>
+                                            <Folder name="experiences.md" />
+                                        </div>
+                                        <div onClick={handleMeClick}>
+                                            <Folder name="projects.md" />
+                                        </div>
+                                        <div onClick={handleMeClick}>
+                                            <Folder name="skills.md" />
+                                        </div>
                                     </div>
-                                </div>
+                                }
                             </div>
                         </div>
                     </div>

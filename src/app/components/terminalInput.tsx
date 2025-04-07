@@ -56,7 +56,7 @@ export default function TerminalInput({ containerRef, inputRef }) {
                     onChange={handleChange}
                     onKeyDown={handleSubmit}
                     autoFocus
-                    className='border-none outline-none w-full'
+                    className='border-none outline-none'
                 />
             </div>
         </div>
