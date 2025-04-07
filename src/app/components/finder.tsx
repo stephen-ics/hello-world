@@ -108,8 +108,12 @@ export default function Finder({ inputRef }) {
     function handleMeClick(event) {
         event.stopPropagation();
 
-        unselectAll();
-        setSelectMe(true);
+        if(selectMe === true) {
+            dispatch(changeDirectory("me!"));
+        } else {
+            unselectAll();
+            setSelectMe(true);
+        }
     }
 
     const onResize = (event, { size: newSize }) => {
@@ -255,6 +259,19 @@ export default function Finder({ inputRef }) {
                                         </div>
                                         <div onClick={handleMeClick}>
                                             <MarkdownFile name="skills.md" />
+                                        </div>
+                                    </div>
+                                }
+                                {(finderDirectory === "me!") &&
+                                    <div className='p-4 gap-10 flex flex-wrap'>
+                                        <div onClick={handleProfessionalSummaryClick}>
+                                            <MarkdownFile name="about_me.md" />
+                                        </div>
+                                        <div onClick={handleMeClick}>
+                                            <MarkdownFile name="books.md" />
+                                        </div>
+                                        <div onClick={handleMeClick}>
+                                            <MarkdownFile name="thoughts.md" />
                                         </div>
                                     </div>
                                 }
