@@ -20,6 +20,7 @@ export const applicationSlice = createSlice({
         finderY: -1,
         finderTabDesktop: true,
         finderTabDownloads: false,
+        finderDirectory: "Desktop",
     },
 
     reducers: {
@@ -95,9 +96,12 @@ export const applicationSlice = createSlice({
         openDownloadsTab: state => {
             state.finderTabDesktop = false;
             state.finderTabDownloads = true;
+        },
+        changeDirectory: (state, action) => {
+            state.finderDirectory = action.payload;
         }
     }
 })
 
-export const { openTerminal, closeTerminal, showTerminal, hideTerminal, maximizeTerminal, minimizeTerminal, openFinder, closeFinder, showFinder, hideFinder, maximizeFinder, minimizeFinder, openDesktopTab, openDownloadsTab  } = applicationSlice.actions
+export const { openTerminal, closeTerminal, showTerminal, hideTerminal, maximizeTerminal, minimizeTerminal, openFinder, closeFinder, showFinder, hideFinder, maximizeFinder, minimizeFinder, openDesktopTab, openDownloadsTab, changeDirectory  } = applicationSlice.actions
 export default applicationSlice.reducer

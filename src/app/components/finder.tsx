@@ -2,7 +2,7 @@
 
 import { useState, useRef, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux'
-import { closeFinder, hideFinder, maximizeFinder, minimizeFinder, openDesktopTab, openDownloadsTab } from '../slices/applicationSlice'
+import { changeDirectory, closeFinder, hideFinder, maximizeFinder, minimizeFinder, openDesktopTab, openDownloadsTab } from '../slices/applicationSlice'
 import { Resizable } from 'react-resizable';
 import 'react-resizable/css/styles.css';
 import Draggable from 'react-draggable';
@@ -25,6 +25,8 @@ export default function Finder({ inputRef }) {
 
     const finderDesktopOpen = useSelector(state => state.application.finderTabDesktop)
     const finderDownloadsOpen = useSelector(state => state.application.finderTabDownloads)
+
+    const finderDirectory = useSelector(state => state.application.finderDirectory);
 
     const [defaultX, setDefaultX] = useState(0);
     const [defaultY, setDefaultY] = useState(0);
@@ -74,10 +76,12 @@ export default function Finder({ inputRef }) {
 
     function handleDesktopClick() {
         dispatch(openDesktopTab());
+        dispatch(changeDirectory("Desktop"));
     }
 
     function handleDownloadsClick() {
         dispatch(openDownloadsTab());
+        dispatch(changeDirectory("Downloads"));
     }
 
     const onResize = (event, { size: newSize }) => {
@@ -193,7 +197,7 @@ export default function Finder({ inputRef }) {
                                         />
                                     </div>
                                     <div className='p-2 text-sm text-black/70 font-bold'>
-                                        Downloads
+                                        {finderDirectory}
                                     </div>
                                 </div>
                             </div>
