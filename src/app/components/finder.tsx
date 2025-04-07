@@ -8,6 +8,7 @@ import 'react-resizable/css/styles.css';
 import Draggable from 'react-draggable';
 import HoverableImage from './hoverableImage';
 import Image from 'next/image'
+import Folder from './folder'
 import { motion } from 'framer-motion';
 
 export default function Finder({ inputRef }) {
@@ -16,6 +17,9 @@ export default function Finder({ inputRef }) {
     const [mounted, setMounted] = useState(false);
     const [animateTransition, setAnimateTransition] = useState(false);
     const dispatch = useDispatch();
+
+    const [selectProfessionalSummary, setSelectProfessionalSummary] = useState(false);
+    const [selectMe, setSelectMe] = useState(false);
 
     const finderFullscreen = useSelector(state => state.application.finderFullscreen)
     const finderWidth = useSelector(state => state.application.finderWidth)
@@ -82,6 +86,25 @@ export default function Finder({ inputRef }) {
     function handleDownloadsClick() {
         dispatch(openDownloadsTab());
         dispatch(changeDirectory("Downloads"));
+    }
+
+    function unselectAll() {
+        setSelectProfessionalSummary(false);
+        setSelectMe(false);
+    }
+
+    function handleProfessionalSummaryClick() {
+        if(selectProfessionalSummary === true) {
+            changeDirectory("professional-summary")
+        } else {
+            unselectAll();
+            setSelectProfessionalSummary(true);
+        }
+    }
+
+    function handleMeClick() {
+        unselectAll();
+        setSelectMe(true);
     }
 
     const onResize = (event, { size: newSize }) => {
@@ -202,7 +225,15 @@ export default function Finder({ inputRef }) {
                                 </div>
                             </div>
                             <div>
-                                
+                                <div className='m-6 gap-10 flex flex-wrap'>
+                                    
+                                    <div onClick={handleProfessionalSummaryClick}>
+                                        <Folder name="professional-summary" selected={selectProfessionalSummary} />
+                                    </div>
+                                    <div onClick={handleMeClick}>
+                                        <Folder name="me!" selected={selectMe} />
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
