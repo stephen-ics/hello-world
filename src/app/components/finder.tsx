@@ -9,6 +9,7 @@ import Draggable from 'react-draggable';
 import HoverableImage from './hoverableImage';
 import Image from 'next/image'
 import Folder from './folder'
+import MarkdownFile from './markdownFile';
 import { motion } from 'framer-motion';
 
 export default function Finder({ inputRef }) {
@@ -55,7 +56,7 @@ export default function Finder({ inputRef }) {
     if (!mounted) return null;
 
     function handleClickRed() {
-        dispatch(closeFinder({ width: 500, height: 300, x: defaultX, y: defaultY }));
+        dispatch(closeFinder({ width: 800, height: 600, x: defaultX, y: defaultY }));
     }
 
     function handleClickYellow() {
@@ -244,16 +245,16 @@ export default function Finder({ inputRef }) {
                                 {(finderDirectory === "professional-summary") &&
                                     <div className='p-4 gap-10 flex flex-wrap'>
                                         <div onClick={handleProfessionalSummaryClick}>
-                                            <Folder name="education.md" />
+                                            <MarkdownFile name="education.md" />
                                         </div>
                                         <div onClick={handleMeClick}>
-                                            <Folder name="experiences.md" />
+                                            <MarkdownFile name="experiences.md" />
                                         </div>
                                         <div onClick={handleMeClick}>
-                                            <Folder name="projects.md" />
+                                            <MarkdownFile name="projects.md" />
                                         </div>
                                         <div onClick={handleMeClick}>
-                                            <Folder name="skills.md" />
+                                            <MarkdownFile name="skills.md" />
                                         </div>
                                     </div>
                                 }
