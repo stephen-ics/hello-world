@@ -2,8 +2,7 @@
 
 import { useState, useRef, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux'
-import { closeFinder, hideFinder, maximizeTerminal, minimizeTerminal, openDesktopTab, openDownloadsTab } from '../slices/applicationSlice'
-import { clearHistory } from '../slices/terminalSlice'
+import { closeFinder, hideFinder, maximizeFinder, minimizeFinder, openDesktopTab, openDownloadsTab } from '../slices/applicationSlice'
 import { Resizable } from 'react-resizable';
 import 'react-resizable/css/styles.css';
 import Draggable from 'react-draggable';
@@ -18,43 +17,54 @@ export default function Finder({ inputRef }) {
     const [animateTransition, setAnimateTransition] = useState(false);
     const dispatch = useDispatch();
 
-    const terminalFullscreen = useSelector(state => state.application.terminalFullscreen)
-    const originalWidth = useSelector(state => state.application.terminalOriginalWidth)
-    const originalHeight = useSelector(state => state.application.terminalOriginalHeight)
-    const originalX = useSelector(state => state.application.terminalOriginalX)
-    const originalY = useSelector(state => state.application.terminalOriginalY)
+    const finderFullscreen = useSelector(state => state.application.finderFullscreen)
+    const finderWidth = useSelector(state => state.application.finderWidth)
+    const finderHeight = useSelector(state => state.application.finderHeight)
+    const finderX = useSelector(state => state.application.finderX)
+    const finderY = useSelector(state => state.application.finderY)
 
     const finderDesktopOpen = useSelector(state => state.application.finderTabDesktop)
     const finderDownloadsOpen = useSelector(state => state.application.finderTabDownloads)
 
+    const [defaultX, setDefaultX] = useState(0);
+    const [defaultY, setDefaultY] = useState(0);
+
     const dragRef = useRef(null);
 
     useEffect(() => {
-        const x = window.innerWidth / 2 - size.width / 2;
-        const y = window.innerHeight / 2 - size.height;
-        setPosition({ x, y });
+        setDefaultX(window.innerWidth / 2 - size.width / 2);
+        setDefaultY(window.innerHeight / 2 - size.height);
+        setPosition({ x: defaultX, y: defaultY });
+
+        if(finderX === -1 && finderY === -1) {
+            setPosition({ x: window.innerWidth / 2 - size.width / 2, y: window.innerHeight / 2 - size.height });
+        } else {
+            setPosition({ x: finderX, y: finderY });
+        }
+
+        setSize({ width: finderWidth, height: finderHeight });
         setMounted(true);
     }, []);
 
     if (!mounted) return null;
 
     function handleClickRed() {
-        dispatch(closeFinder());
+        dispatch(closeFinder({ width: 500, height: 300, x: defaultX, y: defaultY }));
     }
 
     function handleClickYellow() {
-        dispatch(hideFinder());
+        dispatch(hideFinder({ width: size.width, height: size.height, x: position.x, y: position.y }));
     }
 
     function handleClickGreen() {
         setAnimateTransition(true);
 
-        if (terminalFullscreen) {
-            dispatch(minimizeTerminal());
-            setSize({ width: originalWidth, height: originalHeight });
-            setPosition({ x: originalX, y: originalY });
+        if (finderFullscreen) {
+            dispatch(minimizeFinder());
+            setSize({ width: finderWidth, height: finderHeight });
+            setPosition({ x: finderX, y: finderY });
         } else {
-            dispatch(maximizeTerminal({ width: size.width, height: size.height, x: position.x, y: position.y }));
+            dispatch(maximizeFinder({ width: size.width, height: size.height, x: position.x, y: position.y }));
             setSize({ width: window.innerWidth, height: window.innerHeight });
             setPosition({ x: 0, y: 0 });
         }
@@ -100,7 +110,7 @@ export default function Finder({ inputRef }) {
                 <Resizable width={size.width} height={size.height} onResize={onResize}>
                     <div
                         style={{ width: '100%', height: '100%' }}
-                        className={"bg-gray-50 w-full lg:min-w-[500px] min-w-[300px] lg:min-h-[30vh] min-h-[300px] border-2 border-solid border-gray-300 flex overflow-hidden text-sm" + (terminalFullscreen ? " rounded-none" : " rounded-lg")}
+                        className={"bg-gray-50 w-full lg:min-w-[500px] min-w-[300px] lg:min-h-[30vh] min-h-[300px] border-2 border-solid border-gray-300 flex overflow-hidden text-sm" + (finderFullscreen ? " rounded-none" : " rounded-lg")}
                     >
                         <div className="bg-gray-300 hover:bg-gray-300/80 handle transition duration-300 w-1/4">
                             <div className='flex flex-col m-3'>

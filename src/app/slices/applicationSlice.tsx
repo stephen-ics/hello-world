@@ -13,6 +13,11 @@ export const applicationSlice = createSlice({
 
         finderOpen: false,
         finderHide: true,
+        finderFullscreen: false,
+        finderWidth: 500,
+        finderHeight: 300,
+        finderX: -1,
+        finderY: -1,
         finderTabDesktop: true,
         finderTabDownloads: false,
     },
@@ -53,14 +58,35 @@ export const applicationSlice = createSlice({
         openFinder: state => {
             state.finderOpen = true
         },
-        closeFinder: state => {
+        closeFinder: (state, action) => {
             state.finderOpen = false
+
+            state.finderWidth = action.payload.width;
+            state.finderHeight = action.payload.height;
+            state.finderX = action.payload.x;
+            state.finderY = action.payload.y;
         },
         showFinder: state => {
             state.finderHide = false;
         },
-        hideFinder: state => {
+        hideFinder: (state, action) => {
             state.finderHide = true;
+
+            state.finderWidth = action.payload.width;
+            state.finderHeight = action.payload.height;
+            state.finderX = action.payload.x;
+            state.finderY = action.payload.y;
+        },
+        maximizeFinder: (state, action) => {
+            state.finderFullscreen = true;
+            
+            state.finderWidth = action.payload.width;
+            state.finderHeight = action.payload.height;
+            state.finderX = action.payload.x;
+            state.finderY = action.payload.y;
+        },
+        minimizeFinder: state => {
+            state.finderFullscreen = false;
         },
         openDesktopTab: state => {
             state.finderTabDesktop = true;
@@ -73,5 +99,5 @@ export const applicationSlice = createSlice({
     }
 })
 
-export const { openTerminal, closeTerminal, showTerminal, hideTerminal, maximizeTerminal, minimizeTerminal, openFinder, closeFinder, showFinder, hideFinder, openDesktopTab, openDownloadsTab  } = applicationSlice.actions
+export const { openTerminal, closeTerminal, showTerminal, hideTerminal, maximizeTerminal, minimizeTerminal, openFinder, closeFinder, showFinder, hideFinder, maximizeFinder, minimizeFinder, openDesktopTab, openDownloadsTab  } = applicationSlice.actions
 export default applicationSlice.reducer
