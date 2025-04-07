@@ -6,10 +6,10 @@ export const applicationSlice = createSlice({
         terminalOpen: true,
         terminalHide: false,
         terminalFullscreen: false,
-        terminalOriginalWidth: 0,
-        terminalOriginalHeight: 0,
-        terminalOriginalX: 0,
-        terminalOriginalY: 0,
+        terminalWidth: 500,
+        terminalHeight: 300,
+        terminalX: -1,
+        terminalY: -1,
 
         finderOpen: false,
         finderHide: true,
@@ -21,26 +21,35 @@ export const applicationSlice = createSlice({
         openTerminal: state => {
             state.terminalOpen = true
         },
-        closeTerminal: state => {
+        closeTerminal: (state, action) => {
             state.terminalOpen = false
+
+            state.terminalWidth = action.payload.width;
+            state.terminalHeight = action.payload.height;
+            state.terminalX = action.payload.x;
+            state.terminalY = action.payload.y;
         },
         showTerminal: state => {
             state.terminalHide = false;
         },
-        hideTerminal: state => {
+        hideTerminal: (state, action) => {
             state.terminalHide = true;
+
+            state.terminalWidth = action.payload.width;
+            state.terminalHeight = action.payload.height;
+            state.terminalX = action.payload.x;
+            state.terminalY = action.payload.y;
         },
         maximizeTerminal: (state, action) => {
             state.terminalFullscreen = true;
-            state.terminalOriginalWidth = action.payload.width;
-            state.terminalOriginalHeight = action.payload.height;
-            state.terminalOriginalX = action.payload.x;
-            state.terminalOriginalY = action.payload.y;
+            state.terminalWidth = action.payload.width;
+            state.terminalHeight = action.payload.height;
+            state.terminalX = action.payload.x;
+            state.terminalY = action.payload.y;
         },
         minimizeTerminal: state => {
             state.terminalFullscreen = false;
         },
-
         openFinder: state => {
             state.finderOpen = true
         },

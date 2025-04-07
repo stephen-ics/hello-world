@@ -8,6 +8,7 @@ import { motion, useAnimation } from 'framer-motion'
 
 export default function TerminalApp({ isDock = false }) {
     const terminalOpen = useSelector(state => state.application.terminalOpen)
+
     const controls = useAnimation();
 
     const dispatch = useDispatch();

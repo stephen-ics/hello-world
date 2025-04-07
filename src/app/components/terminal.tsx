@@ -20,30 +20,42 @@ export default function Terminal({ inputRef }) {
     const dispatch = useDispatch();
 
     const terminalFullscreen = useSelector(state => state.application.terminalFullscreen)
-    const originalWidth = useSelector(state => state.application.terminalOriginalWidth)
-    const originalHeight = useSelector(state => state.application.terminalOriginalHeight)
-    const originalX = useSelector(state => state.application.terminalOriginalX)
-    const originalY = useSelector(state => state.application.terminalOriginalY)
+    const terminalWidth = useSelector(state => state.application.terminalWidth)
+    const terminalHeight = useSelector(state => state.application.terminalHeight)
+    const terminalX = useSelector(state => state.application.terminalX)
+    const terminalY = useSelector(state => state.application.terminalY)
+
+    const [defaultX, setDefaultX] = useState(0);
+    const [defaultY, setDefaultY] = useState(0);
 
     const containerRef = useRef(null);
     const dragRef = useRef(null);
 
     useEffect(() => {
-        const x = window.innerWidth / 2 - size.width / 2;
-        const y = window.innerHeight / 2 - size.height;
-        setPosition({ x, y });
+        setDefaultX(window.innerWidth / 2 - size.width / 2);
+        setDefaultY(window.innerHeight / 2 - size.height);
+        setPosition({ x: defaultX, y: defaultY });
+
+        if(terminalX === -1 && terminalY === -1) {
+            setPosition({ x: window.innerWidth / 2 - size.width / 2, y: window.innerHeight / 2 - size.height });
+        } else {
+            setPosition({ x: terminalX, y: terminalY });
+        }
+
+        setSize({ width: terminalWidth, height: terminalHeight });
         setMounted(true);
     }, []);
 
     if (!mounted) return null;
 
     function handleClickRed() {
-        dispatch(closeTerminal());
+        dispatch(closeTerminal({ width: 500, height: 300, x: defaultX, y: defaultY }));
         dispatch(clearHistory());
     }
 
     function handleClickYellow() {
-        dispatch(hideTerminal());
+        console.log("position.x ", position.x);
+        dispatch(hideTerminal({ width: size.width, height: size.height, x: position.x, y: position.y }));
     }
 
     function handleClickGreen() {
@@ -51,8 +63,8 @@ export default function Terminal({ inputRef }) {
 
         if (terminalFullscreen) {
             dispatch(minimizeTerminal());
-            setSize({ width: originalWidth, height: originalHeight });
-            setPosition({ x: originalX, y: originalY });
+            setSize({ width: terminalWidth, height: terminalHeight });
+            setPosition({ x: terminalX, y: terminalY });
         } else {
             dispatch(maximizeTerminal({ width: size.width, height: size.height, x: position.x, y: position.y }));
             setSize({ width: window.innerWidth, height: window.innerHeight });
