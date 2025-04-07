@@ -146,7 +146,7 @@ export default function Finder({ inputRef }) {
                                     <div className='font-semibold text-gray-700 opacity-50'>
                                         Favourite
                                     </div>
-                                    <div className='flex p-1 px-2 rounded-md cursor-default justify-start items-center' style={finderDesktopOpen ? { backgroundColor: 'rgba(185, 187, 187, 0.7)' } : {}} onClick={handleDesktopClick}>
+                                    <div className='flex p-1 px-2 rounded-md cursor-default justify-start items-center duration-300' style={finderDesktopOpen ? { backgroundColor: 'rgba(185, 187, 187, 0.7)' } : {}} onClick={handleDesktopClick}>
                                         <Image 
                                             src='/app_icons/app_desktop.png'
                                             width={15}
@@ -156,7 +156,7 @@ export default function Finder({ inputRef }) {
                                         />
                                         <div className='mx-1'>Desktop</div>
                                     </div>
-                                    <div className='flex p-1 px-2 rounded-md cursor-default justify-start items-center' style={finderDownloadsOpen ? { backgroundColor: 'rgba(185, 187, 187, 0.7)' } : {}} onClick={handleDownloadsClick}>
+                                    <div className='flex p-1 px-2 rounded-md cursor-default justify-start items-center duration-300' style={finderDownloadsOpen ? { backgroundColor: 'rgba(185, 187, 187, 0.7)' } : {}} onClick={handleDownloadsClick}>
                                         <Image 
                                             src='/app_icons/app_downloads.png'
                                             width={15}
@@ -172,28 +172,28 @@ export default function Finder({ inputRef }) {
                             </div>
                         </div>
                         <div className='w-full h-full outline-solid outline-gray-400/40  shadow-sm outline-1'>
-                            <div className='w-full outline-solid outline-gray-300/60 outline-1 shadow-sm h-1/10 max-h-[50px] min-h-[40px] bg-gray-200 handle hover:bg-gray-200/80 transition flex items-center'>
+                            <div className='w-full outline-solid outline-gray-300/60 outline-1 shadow-sm h-1/10 max-h-[50px] min-h-[42px] bg-gray-200 handle hover:bg-gray-200/80 transition flex items-center'>
                                 <div className='flex items-center ml-4'>
-                                    <div className='hover:bg-gray-300/80 rounded-md p-2'>
+                                    <div className='hover:bg-gray-300/80 duration-300 rounded-md p-2'>
                                         <Image 
-                                            src='/app_icons/app_downloads.png'
-                                            width={15}
-                                            height={15}
+                                            src='/app_icons/app_finder_left_dark.png'
+                                            width={9}
+                                            height={9}
                                             alt='app active'
                                             className='object-contain'
                                         />
                                     </div>
-                                    <div className='hover:bg-gray-300/80 rounded-md p-2'>
+                                    <div className='hover:bg-gray-300/80 duration-300 rounded-md p-2'>
                                         <Image 
-                                            src='/app_icons/app_downloads.png'
-                                            width={15}
-                                            height={15}
+                                            src='/app_icons/app_finder_right_dark.png'
+                                            width={9}
+                                            height={9}
                                             alt='app active'
                                             className='object-contain'
                                         />
                                     </div>
-                                    <div className='p-2'>
-                                        HSALDKAS:DL
+                                    <div className='p-2 text-sm text-black/70 font-bold'>
+                                        Downloads
                                     </div>
                                 </div>
                             </div>
