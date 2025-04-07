@@ -110,7 +110,7 @@ export default function Finder({ inputRef }) {
                 <Resizable width={size.width} height={size.height} onResize={onResize}>
                     <div
                         style={{ width: '100%', height: '100%' }}
-                        className={"duration-300 bg-gray-50 w-full lg:text-xs text-[9px] lg:min-w-[500px] min-w-[300px] lg:min-h-[30vh] min-h-[300px] border-2 border-solid border-gray-300 flex overflow-hidden" + (finderFullscreen ? " rounded-none" : " rounded-lg")}
+                        className={"outline-solid outline-gray-400/60 duration-300 bg-gray-50 w-full lg:text-xs text-[9px] lg:min-w-[500px] min-w-[300px] lg:min-h-[30vh] min-h-[300px] border-2 border-solid border-gray-300 flex overflow-hidden" + (finderFullscreen ? " rounded-none" : " rounded-lg")}
                     >
                         <div className="bg-gray-300 hover:bg-gray-300/80 handle transition w-1/5 max-w-[130px] lg:min-w-[120px] min-w-[100px] lg:block">
                             <div className='flex flex-col m-3'>
@@ -171,8 +171,8 @@ export default function Finder({ inputRef }) {
                                 </div>
                             </div>
                         </div>
-                        <div className='w-full h-full'>
-                            <div className='w-full h-1/10 max-h-[50px] min-h-[40px] bg-gray-200 handle hover:bg-gray-200/80 transition flex items-center'>
+                        <div className='w-full h-full outline-solid outline-gray-400/40  shadow-sm outline-1'>
+                            <div className='w-full outline-solid outline-gray-300/60 outline-1 shadow-sm h-1/10 max-h-[50px] min-h-[40px] bg-gray-200 handle hover:bg-gray-200/80 transition flex items-center'>
                                 <div className='flex items-center ml-4'>
                                     <div className='hover:bg-gray-300/80 rounded-md p-2'>
                                         <Image 
