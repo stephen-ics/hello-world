@@ -25,6 +25,9 @@ export default function Finder() {
     const [selectExperiences, setSelectExperiences] = useState(false);
     const [selectProjects, setSelectProjects] = useState(false);
     const [selectSkills, setSelectSkills] = useState(false);
+    const [selectAboutMe, setSelectAboutMe] = useState(false);
+    const [selectBooks, setSelectBooks] = useState(false);
+    const [selectThoughts, setSelectThoughts] = useState(false);
 
     const finderFullscreen = useSelector(state => state.application.finderFullscreen)
     const finderWidth = useSelector(state => state.application.finderWidth)
@@ -100,6 +103,9 @@ export default function Finder() {
         setSelectExperiences(false);
         setSelectProjects(false);
         setSelectSkills(false);
+        setSelectAboutMe(false);
+        setSelectBooks(false);
+        setSelectThoughts(false);
     }
 
     function handleProfessionalSummaryClick(event) {
@@ -127,7 +133,7 @@ export default function Finder() {
     function handleEducation(event) {
         event.stopPropagation();
 
-        if(selectMe === true) {
+        if(selectEducation === true) {
             // dispatch(changeDirectory("me!"));
         } else {
             unselectAll();
@@ -138,7 +144,7 @@ export default function Finder() {
     function handleExperiences(event) {
         event.stopPropagation();
 
-        if(selectMe === true) {
+        if(selectExperiences === true) {
             // dispatch(changeDirectory("me!"));
         } else {
             unselectAll();
@@ -149,7 +155,7 @@ export default function Finder() {
     function handleProjects(event) {
         event.stopPropagation();
 
-        if(selectMe === true) {
+        if(selectProjects === true) {
             // dispatch(changeDirectory("me!"));
         } else {
             unselectAll();
@@ -160,11 +166,44 @@ export default function Finder() {
     function handleSkills(event) {
         event.stopPropagation();
 
-        if(selectMe === true) {
+        if(selectSkills === true) {
             // dispatch(changeDirectory("me!"));
         } else {
             unselectAll();
             setSelectSkills(true);
+        }
+    }
+
+    function handleAboutMe(event) {
+        event.stopPropagation();
+
+        if(selectAboutMe === true) {
+            // dispatch(changeDirectory("me!"));
+        } else {
+            unselectAll();
+            setSelectAboutMe(true);
+        }
+    }
+
+    function handleBooks(event) {
+        event.stopPropagation();
+
+        if(selectBooks === true) {
+            // dispatch(changeDirectory("me!"));
+        } else {
+            unselectAll();
+            setSelectBooks(true);
+        }
+    }
+
+    function handleThoughts(event) {
+        event.stopPropagation();
+
+        if(selectThoughts === true) {
+            // dispatch(changeDirectory("me!"));
+        } else {
+            unselectAll();
+            setSelectThoughts(true);
         }
     }
 
@@ -348,14 +387,14 @@ export default function Finder() {
                                 }
                                 {(finderDirectory === "me!") &&
                                     <div className='p-4 gap-10 flex flex-wrap'>
-                                        <div onClick={handleProfessionalSummaryClick}>
-                                            <MarkdownFile name="about_me.md" />
+                                        <div onClick={handleAboutMe}>
+                                            <MarkdownFile name="about_me.md" selected={selectAboutMe} />
                                         </div>
-                                        <div onClick={handleMeClick}>
-                                            <MarkdownFile name="books.md" />
+                                        <div onClick={handleBooks}>
+                                            <MarkdownFile name="books.md" selected={selectBooks} />
                                         </div>
-                                        <div onClick={handleMeClick}>
-                                            <MarkdownFile name="thoughts.md" />
+                                        <div onClick={handleThoughts}>
+                                            <MarkdownFile name="thoughts.md" selected={selectThoughts} />
                                         </div>
                                     </div>
                                 }
