@@ -12,7 +12,7 @@ import Folder from './folder'
 import MarkdownFile from './markdownFile';
 import { motion } from 'framer-motion';
 
-export default function Finder({ inputRef }) {
+export default function Finder() {
     const [size, setSize] = useState({ width: 500, height: 300 });
     const [position, setPosition] = useState({ x: 0, y: 0 });
     const [mounted, setMounted] = useState(false);
@@ -21,6 +21,10 @@ export default function Finder({ inputRef }) {
 
     const [selectProfessionalSummary, setSelectProfessionalSummary] = useState(false);
     const [selectMe, setSelectMe] = useState(false);
+    const [selectEducation, setSelectEducation] = useState(false);
+    const [selectExperiences, setSelectExperiences] = useState(false);
+    const [selectProjects, setSelectProjects] = useState(false);
+    const [selectSkills, setSelectSkills] = useState(false);
 
     const finderFullscreen = useSelector(state => state.application.finderFullscreen)
     const finderWidth = useSelector(state => state.application.finderWidth)
@@ -92,6 +96,10 @@ export default function Finder({ inputRef }) {
     function unselectAll() {
         setSelectProfessionalSummary(false);
         setSelectMe(false);
+        setSelectEducation(false);
+        setSelectExperiences(false);
+        setSelectProjects(false);
+        setSelectSkills(false);
     }
 
     function handleProfessionalSummaryClick(event) {
@@ -113,6 +121,66 @@ export default function Finder({ inputRef }) {
         } else {
             unselectAll();
             setSelectMe(true);
+        }
+    }
+
+    function handleEducation(event) {
+        event.stopPropagation();
+
+        if(selectMe === true) {
+            // dispatch(changeDirectory("me!"));
+        } else {
+            unselectAll();
+            setSelectEducation(true);
+        }
+    }
+
+    function handleExperiences(event) {
+        event.stopPropagation();
+
+        if(selectMe === true) {
+            // dispatch(changeDirectory("me!"));
+        } else {
+            unselectAll();
+            setSelectExperiences(true);
+        }
+    }
+
+    function handleProjects(event) {
+        event.stopPropagation();
+
+        if(selectMe === true) {
+            // dispatch(changeDirectory("me!"));
+        } else {
+            unselectAll();
+            setSelectProjects(true);
+        }
+    }
+
+    function handleSkills(event) {
+        event.stopPropagation();
+
+        if(selectMe === true) {
+            // dispatch(changeDirectory("me!"));
+        } else {
+            unselectAll();
+            setSelectSkills(true);
+        }
+    }
+
+    function handleLeftArrowClick() {
+        if((finderDirectory === "professional-summary" || finderDirectory === "me!") && finderDesktopOpen === true) {
+            dispatch(changeDirectory("Desktop"));
+        } else if((finderDirectory === "professional-summary" || finderDirectory === "me!") && finderDownloadsOpen === true) {
+            dispatch(changeDirectory("Downloads"))
+        }
+    }
+
+    function handleRightArrowClick() {
+        if(selectProfessionalSummary) {
+            dispatch(changeDirectory("professional-summary"));
+        } else if(selectMe) {
+            dispatch(changeDirectory("me!"))
         }
     }
 
@@ -212,23 +280,39 @@ export default function Finder({ inputRef }) {
                                 className='w-full outline-solid outline-gray-300/60 outline-1 shadow-sm h-1/10 max-h-[50px] min-h-[42px] bg-gray-200 handle hover:bg-gray-200/80 transition flex items-center'
                             >
                                 <div className='flex items-center ml-4'>
-                                    <div className='hover:bg-gray-300/80 duration-300 rounded-md p-2'>
-                                        <Image 
-                                            src='/app_icons/app_finder_left_dark.png'
-                                            width={9}
-                                            height={9}
-                                            alt='app active'
-                                            className='object-contain'
-                                        />
+                                    <div className='hover:bg-gray-300/80 duration-300 rounded-md p-2' onClick={handleLeftArrowClick}>
+                                        {(finderDirectory === "Desktop" || finderDirectory === "Downloads") ?
+                                            <Image 
+                                                src='/app_icons/app_finder_left_light.png'
+                                                width={9}
+                                                height={9}
+                                                alt='app active'
+                                                className='object-contain'
+                                            /> : <Image 
+                                                src='/app_icons/app_finder_left_dark.png'
+                                                width={9}
+                                                height={9}
+                                                alt='app active'
+                                                className='object-contain'
+                                            />
+                                        }
                                     </div>
-                                    <div className='hover:bg-gray-300/80 duration-300 rounded-md p-2'>
-                                        <Image 
-                                            src='/app_icons/app_finder_right_dark.png'
-                                            width={9}
-                                            height={9}
-                                            alt='app active'
-                                            className='object-contain'
-                                        />
+                                    <div className='hover:bg-gray-300/80 duration-300 rounded-md p-2' onClick={handleRightArrowClick}>
+                                        {(finderDirectory === "professional-summary" || finderDirectory === "me!") ?
+                                            <Image 
+                                                src='/app_icons/app_finder_right_light.png'
+                                                width={9}
+                                                height={9}
+                                                alt='app active'
+                                                className='object-contain'
+                                            /> : <Image 
+                                                src='/app_icons/app_finder_right_dark.png'
+                                                width={9}
+                                                height={9}
+                                                alt='app active'
+                                                className='object-contain'
+                                            />
+                                        }
                                     </div>
                                     <div className='p-2 text-sm text-black/70 font-bold'>
                                         {finderDirectory}
@@ -248,17 +332,17 @@ export default function Finder({ inputRef }) {
                                 }
                                 {(finderDirectory === "professional-summary") &&
                                     <div className='p-4 gap-10 flex flex-wrap'>
-                                        <div onClick={handleProfessionalSummaryClick}>
-                                            <MarkdownFile name="education.md" />
+                                        <div onClick={handleEducation}>
+                                            <MarkdownFile name="education.md" selected={selectEducation} />
                                         </div>
-                                        <div onClick={handleMeClick}>
-                                            <MarkdownFile name="experiences.md" />
+                                        <div onClick={handleExperiences}>
+                                            <MarkdownFile name="experiences.md" selected={selectExperiences} />
                                         </div>
-                                        <div onClick={handleMeClick}>
-                                            <MarkdownFile name="projects.md" />
+                                        <div onClick={handleProjects}>
+                                            <MarkdownFile name="projects.md" selected={selectProjects} />
                                         </div>
-                                        <div onClick={handleMeClick}>
-                                            <MarkdownFile name="skills.md" />
+                                        <div onClick={handleSkills}>
+                                            <MarkdownFile name="skills.md" selected={selectSkills} />
                                         </div>
                                     </div>
                                 }
