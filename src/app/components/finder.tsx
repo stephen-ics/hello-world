@@ -110,9 +110,9 @@ export default function Finder({ inputRef }) {
                 <Resizable width={size.width} height={size.height} onResize={onResize}>
                     <div
                         style={{ width: '100%', height: '100%' }}
-                        className={"bg-gray-50 w-full lg:min-w-[500px] min-w-[300px] lg:min-h-[30vh] min-h-[300px] border-2 border-solid border-gray-300 flex overflow-hidden text-sm" + (finderFullscreen ? " rounded-none" : " rounded-lg")}
+                        className={"duration-300 bg-gray-50 w-full lg:text-xs text-[9px] lg:min-w-[500px] min-w-[300px] lg:min-h-[30vh] min-h-[300px] border-2 border-solid border-gray-300 flex overflow-hidden" + (finderFullscreen ? " rounded-none" : " rounded-lg")}
                     >
-                        <div className="bg-gray-300 hover:bg-gray-300/80 handle transition duration-300 w-1/4">
+                        <div className="bg-gray-300 hover:bg-gray-300/80 handle transition w-1/5 max-w-[130px] lg:min-w-[120px] min-w-[100px] lg:block">
                             <div className='flex flex-col m-3'>
                                 <div className="flex w-full">
                                     <div className="flex w-5/9 max-w-[4vw] items-center">
@@ -143,10 +143,10 @@ export default function Finder({ inputRef }) {
                                     </div>
                                 </div>
                                 <div className='flex flex-col my-3'>
-                                    <div className='text-sm font-semibold text-gray-700 opacity-50'>
+                                    <div className='font-semibold text-gray-700 opacity-50'>
                                         Favourite
                                     </div>
-                                    <div className='flex p-1 px-2 rounded-md cursor-default duration-300' style={finderDesktopOpen ? { backgroundColor: 'rgba(185, 187, 187, 0.7)' } : {}} onClick={handleDesktopClick}>
+                                    <div className='flex p-1 px-2 rounded-md cursor-default justify-start items-center' style={finderDesktopOpen ? { backgroundColor: 'rgba(185, 187, 187, 0.7)' } : {}} onClick={handleDesktopClick}>
                                         <Image 
                                             src='/app_icons/app_desktop.png'
                                             width={15}
@@ -154,9 +154,9 @@ export default function Finder({ inputRef }) {
                                             alt='app active'
                                             className='object-contain'
                                         />
-                                        <div className='mx-2'>Desktop</div>
+                                        <div className='mx-1'>Desktop</div>
                                     </div>
-                                    <div className='flex p-1 px-2 rounded-md cursor-default duration-300' style={finderDownloadsOpen ? { backgroundColor: 'rgba(185, 187, 187, 0.7)' } : {}} onClick={handleDownloadsClick}>
+                                    <div className='flex p-1 px-2 rounded-md cursor-default justify-start items-center' style={finderDownloadsOpen ? { backgroundColor: 'rgba(185, 187, 187, 0.7)' } : {}} onClick={handleDownloadsClick}>
                                         <Image 
                                             src='/app_icons/app_downloads.png'
                                             width={15}
@@ -164,7 +164,7 @@ export default function Finder({ inputRef }) {
                                             alt='app active'
                                             className='object-contain'
                                         />
-                                        <div className='mx-2'>
+                                        <div className='mx-1'>
                                             Downloads
                                         </div>
                                     </div>
@@ -172,9 +172,9 @@ export default function Finder({ inputRef }) {
                             </div>
                         </div>
                         <div className='w-full h-full'>
-                            <div className='w-full h-1/8 bg-gray-200 handle hover:bg-gray-200/80 transition duration-300 flex items-center'>
+                            <div className='w-full h-1/10 max-h-[50px] min-h-[40px] bg-gray-200 handle hover:bg-gray-200/80 transition flex items-center'>
                                 <div className='flex items-center ml-4'>
-                                    <div className='hover:bg-gray-300/80 duration-300 rounded-md p-2'>
+                                    <div className='hover:bg-gray-300/80 rounded-md p-2'>
                                         <Image 
                                             src='/app_icons/app_downloads.png'
                                             width={15}
@@ -183,7 +183,7 @@ export default function Finder({ inputRef }) {
                                             className='object-contain'
                                         />
                                     </div>
-                                    <div className='hover:bg-gray-300/80 duration-300 rounded-md p-2'>
+                                    <div className='hover:bg-gray-300/80 rounded-md p-2'>
                                         <Image 
                                             src='/app_icons/app_downloads.png'
                                             width={15}
