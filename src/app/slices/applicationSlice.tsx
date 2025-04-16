@@ -23,6 +23,8 @@ export const applicationSlice = createSlice({
         finderTabDownloads: false,
         finderDirectory: "Desktop",
         zIndexFinder: 10,
+
+        zIndexGlobal: 10,
     },
 
     reducers: {
@@ -59,7 +61,8 @@ export const applicationSlice = createSlice({
             state.terminalFullscreen = false;
         },
         selectTerminal: state => {
-            state.zIndexTerminal = state.zIndexFinder + 1
+            state.zIndexGlobal++;
+            state.zIndexTerminal = state.zIndexGlobal;
         },
 
         openFinder: state => {
@@ -107,7 +110,8 @@ export const applicationSlice = createSlice({
             state.finderDirectory = action.payload;
         },
         selectFinder: state => {
-            state.zIndexFinder = state.zIndexTerminal + 1
+            state.zIndexGlobal++;
+            state.zIndexFinder = state.zIndexGlobal;
         }
     }
 })
