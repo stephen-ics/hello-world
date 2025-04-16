@@ -2,7 +2,7 @@
 
 import { useState, useRef, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux'
-import { changeDirectory, closeFinder, hideFinder, maximizeFinder, minimizeFinder, openDesktopTab, openDownloadsTab } from '../slices/applicationSlice'
+import { changeDirectory, closeFinder, hideFinder, maximizeFinder, minimizeFinder, selectFinder, openDesktopTab, openDownloadsTab } from '../slices/applicationSlice'
 import { Resizable } from 'react-resizable';
 import 'react-resizable/css/styles.css';
 import Draggable from 'react-draggable';
@@ -238,6 +238,11 @@ export default function Finder() {
         setPosition({ x: newX, y: newY });
     };
 
+    function handleDivClick() {
+        dispatch(selectFinder());
+    }
+
+
     return (
         <Draggable nodeRef={dragRef} handle=".handle" position={position} onDrag={handleDrag}>
             <motion.div
@@ -249,6 +254,7 @@ export default function Finder() {
                     y: position.y
                 }}
                 transition={animateTransition ? { duration: 0.3, ease: 'easeOut' } : { duration: 0 }}
+                onClick={handleDivClick}
             >
                 <Resizable width={size.width} height={size.height} onResize={onResize}>
                     <div

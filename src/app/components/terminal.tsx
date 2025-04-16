@@ -2,7 +2,7 @@
 
 import { useState, useRef, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux'
-import { closeTerminal, hideTerminal, maximizeTerminal, minimizeTerminal } from '../slices/applicationSlice'
+import { closeTerminal, hideTerminal, maximizeTerminal, minimizeTerminal, selectTerminal } from '../slices/applicationSlice'
 import { clearHistory } from '../slices/terminalSlice'
 import { Resizable } from 'react-resizable';
 import 'react-resizable/css/styles.css';
@@ -17,6 +17,7 @@ export default function Terminal({ inputRef }) {
     const [position, setPosition] = useState({ x: 0, y: 0 });
     const [mounted, setMounted] = useState(false);
     const [animateTransition, setAnimateTransition] = useState(false);
+
     const dispatch = useDispatch();
 
     const terminalFullscreen = useSelector(state => state.application.terminalFullscreen)
@@ -53,8 +54,7 @@ export default function Terminal({ inputRef }) {
         dispatch(clearHistory());
     }
 
-    function handleClickYellow() {
-        console.log("position.x ", position.x);
+    function handleClickYellow() {        
         dispatch(hideTerminal({ width: size.width, height: size.height, x: position.x, y: position.y }));
     }
 
@@ -92,6 +92,9 @@ export default function Terminal({ inputRef }) {
     function handleContainerClick(event) {
         inputRef.current.focus();
     }
+    function handleDivClick() {
+        dispatch(selectTerminal());
+    }
 
     return (
         <Draggable nodeRef={dragRef} handle=".handle" position={position} onDrag={handleDrag}>
@@ -104,6 +107,7 @@ export default function Terminal({ inputRef }) {
                     y: position.y
                 }}
                 transition={animateTransition ? { duration: 0.3, ease: 'easeOut' } : { duration: 0 }}
+                onClick={handleDivClick}
             >
                 <Resizable width={size.width} height={size.height} onResize={onResize}>
                     <div

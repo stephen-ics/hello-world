@@ -38,7 +38,6 @@ export default function useShell() {
                 dispatch(closeTerminal())
             }, 1000);
         } else if (args[0] === 'ls') {
-            console.log(directory);
             if(directory === "") {
                 dispatch(addHistory('professional-summary\nme!'));
             } else if(directory === " professional-summary") {

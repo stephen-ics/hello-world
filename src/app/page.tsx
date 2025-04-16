@@ -15,6 +15,9 @@ export default function Home() {
   const finderOpen = useSelector(state => state.application.finderOpen)
   const finderHide = useSelector(state => state.application.finderHide)
 
+  const zIndexTerminal = useSelector(state => state.application.zIndexTerminal)
+  const zIndexFinder = useSelector(state => state.application.zIndexFinder)
+
   const inputRef = useRef(null);
 
   function getBackgroundImage(srcSet = '') {
@@ -43,16 +46,19 @@ export default function Home() {
     backgroundRepeat: 'no-repeat'
   }
 
+  console.log("zIndexTerminal", zIndexTerminal)
+  console.log("zIndexFinder", zIndexFinder)
+
   return (
     <div className='h-screen w-screen relative' style={style}>
       {(terminalOpen && !terminalHide) &&
-        <div className='relative z-10 w-0 h-0'>
+        <div className={`relative  w-0 h-0`} style={{zIndex: zIndexTerminal}}>
           <Terminal inputRef={inputRef}/>
         </div>
       }
 
       {(finderOpen && !finderHide) &&
-        <div className='relative z-10 w-0 h-0'>
+        <div className={`relative w-0 h-0`} style={{zIndex: zIndexFinder}}>
           <Finder inputRef={inputRef}/>
         </div>
       }

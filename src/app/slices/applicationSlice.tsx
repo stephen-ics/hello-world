@@ -10,6 +10,7 @@ export const applicationSlice = createSlice({
         terminalHeight: 300,
         terminalX: -1,
         terminalY: -1,
+        zIndexTerminal: 10,
 
         finderOpen: false,
         finderHide: true,
@@ -21,6 +22,7 @@ export const applicationSlice = createSlice({
         finderTabDesktop: true,
         finderTabDownloads: false,
         finderDirectory: "Desktop",
+        zIndexFinder: 10,
     },
 
     reducers: {
@@ -56,6 +58,10 @@ export const applicationSlice = createSlice({
         minimizeTerminal: state => {
             state.terminalFullscreen = false;
         },
+        selectTerminal: state => {
+            state.zIndexTerminal = state.zIndexFinder + 1
+        },
+
         openFinder: state => {
             state.finderOpen = true
         },
@@ -99,9 +105,12 @@ export const applicationSlice = createSlice({
         },
         changeDirectory: (state, action) => {
             state.finderDirectory = action.payload;
+        },
+        selectFinder: state => {
+            state.zIndexFinder = state.zIndexTerminal + 1
         }
     }
 })
 
-export const { openTerminal, closeTerminal, showTerminal, hideTerminal, maximizeTerminal, minimizeTerminal, openFinder, closeFinder, showFinder, hideFinder, maximizeFinder, minimizeFinder, openDesktopTab, openDownloadsTab, changeDirectory  } = applicationSlice.actions
+export const { openTerminal, closeTerminal, showTerminal, hideTerminal, maximizeTerminal, minimizeTerminal, selectTerminal, openFinder, closeFinder, showFinder, hideFinder, maximizeFinder, minimizeFinder, selectFinder, openDesktopTab, openDownloadsTab, changeDirectory  } = applicationSlice.actions
 export default applicationSlice.reducer
