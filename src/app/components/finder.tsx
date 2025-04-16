@@ -2,14 +2,14 @@
 
 import { useState, useRef, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux'
-import { changeDirectory, closeFinder, hideFinder, maximizeFinder, minimizeFinder, selectFinder, openDesktopTab, openDownloadsTab } from '../slices/applicationSlice'
+import { changeDirectory, closeFinder, hideFinder, maximizeFinder, minimizeFinder, selectFinder, openDesktopTab, openDownloadsTab, openMarkdownFile } from '../slices/applicationSlice'
 import { Resizable } from 'react-resizable';
 import 'react-resizable/css/styles.css';
 import Draggable from 'react-draggable';
 import HoverableImage from './hoverableImage';
 import Image from 'next/image'
 import Folder from './folder'
-import MarkdownFile from './markdownFile';
+import MarkdownFileIcon from './markdownFileIcon';
 import { motion } from 'framer-motion';
 
 export default function Finder() {
@@ -134,7 +134,7 @@ export default function Finder() {
         event.stopPropagation();
 
         if(selectEducation === true) {
-            // dispatch(changeDirectory("me!"));
+            dispatch(openMarkdownFile());
         } else {
             unselectAll();
             setSelectEducation(true);
@@ -378,16 +378,16 @@ export default function Finder() {
                                 {(finderDirectory === "professional-summary") &&
                                     <div className='p-4 gap-10 flex flex-wrap'>
                                         <div onClick={handleEducation}>
-                                            <MarkdownFile name="education.md" selected={selectEducation} />
+                                            <MarkdownFileIcon name="education.md" selected={selectEducation} />
                                         </div>
                                         <div onClick={handleExperiences}>
-                                            <MarkdownFile name="experiences.md" selected={selectExperiences} />
+                                            <MarkdownFileIcon name="experiences.md" selected={selectExperiences} />
                                         </div>
                                         <div onClick={handleProjects}>
-                                            <MarkdownFile name="projects.md" selected={selectProjects} />
+                                            <MarkdownFileIcon name="projects.md" selected={selectProjects} />
                                         </div>
                                         <div onClick={handleSkills}>
-                                            <MarkdownFile name="skills.md" selected={selectSkills} />
+                                            <MarkdownFileIcon name="skills.md" selected={selectSkills} />
                                         </div>
                                     </div>
                                 }

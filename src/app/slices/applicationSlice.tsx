@@ -24,6 +24,15 @@ export const applicationSlice = createSlice({
         finderDirectory: "Desktop",
         zIndexFinder: 10,
 
+        markdownFileOpen: false,
+        markdownFileHide: false,
+        markdownFileFullscreen: false,
+        markdownFileWidth: 500,
+        markdownFileHeight: 300,
+        markdownFileX: -1,
+        markdownFileY: -1,
+        zIndexMarkdownFile: 10,
+
         zIndexGlobal: 10,
     },
 
@@ -112,9 +121,46 @@ export const applicationSlice = createSlice({
         selectFinder: state => {
             state.zIndexGlobal++;
             state.zIndexFinder = state.zIndexGlobal;
+        },
+
+        openMarkdownFile: state => {
+            state.markdownFileOpen = true
+        },
+        closeMarkdownFile: (state, action) => {
+            state.markdownFileOpen = false
+
+            state.markdownFileWidth = action.payload.width;
+            state.markdownFileHeight = action.payload.height;
+            state.markdownFileX = action.payload.x;
+            state.markdownFileY = action.payload.y;
+        },
+        showMarkdownFile: state => {
+            state.markdownFileHide = false;
+        },
+        hideMarkdownFile: (state, action) => {
+            state.markdownFileHide = true;
+
+            state.markdownFileWidth = action.payload.width;
+            state.markdownFileHeight = action.payload.height;
+            state.markdownFileX = action.payload.x;
+            state.markdownFileY = action.payload.y;
+        },
+        maximizeMarkdownFile: (state, action) => {
+            state.markdownFileFullscreen = true;
+            state.terminalWidth = action.payload.width;
+            state.terminalHeight = action.payload.height;
+            state.terminalX = action.payload.x;
+            state.terminalY = action.payload.y;
+        },
+        minimizeMarkdownFile: state => {
+            state.terminalFullscreen = false;
+        },
+        selectMarkdownFile: state => {
+            state.zIndexGlobal++;
+            state.zIndexMarkdownFile = state.zIndexGlobal;
         }
     }
 })
 
-export const { openTerminal, closeTerminal, showTerminal, hideTerminal, maximizeTerminal, minimizeTerminal, selectTerminal, openFinder, closeFinder, showFinder, hideFinder, maximizeFinder, minimizeFinder, selectFinder, openDesktopTab, openDownloadsTab, changeDirectory  } = applicationSlice.actions
+export const { openTerminal, closeTerminal, showTerminal, hideTerminal, maximizeTerminal, minimizeTerminal, selectTerminal, openFinder, closeFinder, showFinder, hideFinder, maximizeFinder, minimizeFinder, selectFinder, openDesktopTab, openDownloadsTab, changeDirectory, closeMarkdownFile, openMarkdownFile, showMarkdownFile, hideMarkdownFile, maximizeMarkdownFile, minimizeMarkdownFile, selectMarkdownFile  } = applicationSlice.actions
 export default applicationSlice.reducer

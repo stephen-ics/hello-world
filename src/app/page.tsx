@@ -4,6 +4,7 @@ import Terminal from '@/app/components/terminal'
 import TerminalApp from '@/app/components/terminalApp'
 import Finder from '@/app/components/finder'
 import FinderApp from '@/app/components/finderApp'
+import MarkdownFile from '@/app/components/markdownFile'
 import Dock from '@/app/components/dock'
 import { useSelector } from 'react-redux'
 import { getImageProps } from 'next/image'
@@ -18,8 +19,12 @@ export default function Home() {
   const finderOpen = useSelector(state => state.application.finderOpen)
   const finderHide = useSelector(state => state.application.finderHide)
 
+  const markdownFileOpen = useSelector(state => state.application.markdownFileOpen)
+  const markdownFileHide = useSelector(state => state.application.markdownFileHide)
+
   const zIndexTerminal = useSelector(state => state.application.zIndexTerminal)
   const zIndexFinder = useSelector(state => state.application.zIndexFinder)
+  const zIndexMarkdownFile = useSelector(state => state.application.zIndexMarkdownFile)
 
   const inputRef = useRef(null);
 
@@ -48,15 +53,15 @@ export default function Home() {
     backgroundRepeat: 'no-repeat'
   }
 
-  const markdownText = `A **B** *C* 
-  # HELLO
-  ## HELLO
-  ### HELLO
-  (hello)[https://google.com]
-  [hello](https://google.com)
-  > He once said
+  // const markdownText = `A **B** *C* 
+  // # HELLO
+  // ## HELLO
+  // ### HELLO
+  // (hello)[https://google.com]
+  // [hello](https://google.com)
+  // > He once said
 
-  `
+  // `
 
   return (
     <div className='h-screen w-screen relative' style={style}>
@@ -68,7 +73,13 @@ export default function Home() {
 
       {(finderOpen && !finderHide) &&
         <div className={`relative w-0 h-0`} style={{zIndex: zIndexFinder}}>
-          <Finder inputRef={inputRef}/>
+          <Finder />
+        </div>
+      }
+
+      {(markdownFileOpen && !markdownFileHide) && 
+        <div className={`relative w-0 h-0`} style={{zIndex: zIndexMarkdownFile}}>
+          <MarkdownFile />
         </div>
       }
       
@@ -78,6 +89,7 @@ export default function Home() {
           <p className='text-xs'>
             Terminal
           </p>
+          
         </div>
         <div className='flex flex-col items-center'>
           <FinderApp />
@@ -85,7 +97,8 @@ export default function Home() {
             Finder
           </p>
         </div>
-        <ReactMarkdown remarkPlugins={[remarkGfm]}
+        
+        {/* <ReactMarkdown remarkPlugins={[remarkGfm]}
           components={{
             h1: CustomH1,
             h2: CustomH2,
@@ -102,7 +115,7 @@ export default function Home() {
           }}
         >
           {markdownText}
-        </ReactMarkdown>
+        </ReactMarkdown> */}
       </div>
       
       <Dock />
