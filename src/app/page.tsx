@@ -53,15 +53,15 @@ export default function Home() {
     backgroundRepeat: 'no-repeat'
   }
 
-  // const markdownText = `A **B** *C* 
-  // # HELLO
-  // ## HELLO
-  // ### HELLO
-  // (hello)[https://google.com]
-  // [hello](https://google.com)
-  // > He once said
+  const markdownText = `A **B** *C* 
+  # HELLO
+  ## HELLO
+  ### HELLO
+  (hello)[https://google.com]
+  [hello](https://google.com)
+  > He once said
 
-  // `
+  `
 
   return (
     <div className='h-screen w-screen relative' style={style}>
@@ -79,7 +79,7 @@ export default function Home() {
 
       {(markdownFileOpen && !markdownFileHide) && 
         <div className={`relative w-0 h-0`} style={{zIndex: zIndexMarkdownFile}}>
-          <MarkdownFile />
+          <MarkdownFile markdownText={markdownText} />
         </div>
       }
       
@@ -97,25 +97,6 @@ export default function Home() {
             Finder
           </p>
         </div>
-        
-        {/* <ReactMarkdown remarkPlugins={[remarkGfm]}
-          components={{
-            h1: CustomH1,
-            h2: CustomH2,
-            h3: CustomH3,
-            h4: CustomH4,
-            h5: CustomH5,
-            h6: CustomH6,
-            p: CustomParagraph,
-            em: CustomEmphasis,
-            strong: CustomStrong,
-            a: CustomLink,
-            img: CustomImage,
-            blockquote: CustomBlockQuote
-          }}
-        >
-          {markdownText}
-        </ReactMarkdown> */}
       </div>
       
       <Dock />

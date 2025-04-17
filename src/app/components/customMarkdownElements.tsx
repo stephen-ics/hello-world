@@ -33,7 +33,7 @@ const CustomEmphasis = ({ children }) => (
 );
 
 const CustomStrong = ({ children }) => (
-    <strong className="text-red-500">{children}</strong>
+    <strong className="text-green-500">{children}</strong>
 );
 
 
@@ -65,6 +65,13 @@ const CustomBlockQuote = ({ children }) => (
       {children}
     </blockquote>
 );
+
+const CustomCodeBlock = ({ language, value }) => (
+    <pre className="bg-gray-900 text-white p-4 rounded-lg">
+      <code className={`language-${language}`}>{value}</code>
+    </pre>
+  );
+  
   
 
-export { CustomH1, CustomH2, CustomH3, CustomH4, CustomH5, CustomH6, CustomParagraph, CustomEmphasis, CustomStrong, CustomLink, CustomImage, CustomBlockQuote }
+export { CustomH1, CustomH2, CustomH3, CustomH4, CustomH5, CustomH6, CustomParagraph, CustomEmphasis, CustomStrong, CustomLink, CustomImage, CustomBlockQuote, CustomCodeBlock }

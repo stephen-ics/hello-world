@@ -112,7 +112,7 @@ export default function Terminal({ inputRef }) {
                 <Resizable width={size.width} height={size.height} onResize={onResize}>
                     <div
                         style={{ width: '100%', height: '100%' }}
-                        className={"bg-gray-50 outline-solid outline-gray-400/60 w-full lg:min-w-[500px] min-w-[300px] lg:min-h-[30vh] min-h-[300px] border-2 border-solid border-gray-300 flex flex-col overflow-hidden" + (terminalFullscreen ? " rounded-none" : " rounded-lg")}
+                        className={"bg-gray-50 outline-solid outline-gray-300/50 w-full lg:min-w-[500px] min-w-[300px] lg:min-h-[30vh] min-h-[300px] border-2 border-solid border-gray-300 flex flex-col overflow-hidden" + (terminalFullscreen ? " rounded-none" : " rounded-lg")}
                     >
                         <div className="bg-gray-300 handle hover:bg-gray-300/80 transition duration-300">
                             <div className="flex w-full">
