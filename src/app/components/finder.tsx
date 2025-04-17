@@ -394,13 +394,13 @@ export default function Finder() {
                                 {(finderDirectory === "me!") &&
                                     <div className='p-4 gap-10 flex flex-wrap'>
                                         <div onClick={handleAboutMe}>
-                                            <MarkdownFile name="about_me.md" selected={selectAboutMe} />
+                                            <MarkdownFileIcon name="about_me.md" selected={selectAboutMe} />
                                         </div>
                                         <div onClick={handleBooks}>
-                                            <MarkdownFile name="books.md" selected={selectBooks} />
+                                            <MarkdownFileIcon name="books.md" selected={selectBooks} />
                                         </div>
                                         <div onClick={handleThoughts}>
-                                            <MarkdownFile name="thoughts.md" selected={selectThoughts} />
+                                            <MarkdownFileIcon name="thoughts.md" selected={selectThoughts} />
                                         </div>
                                     </div>
                                 }
