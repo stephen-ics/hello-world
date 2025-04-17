@@ -7,10 +7,13 @@ import { Resizable } from 'react-resizable';
 import 'react-resizable/css/styles.css';
 import Draggable from 'react-draggable';
 import HoverableImage from './hoverableImage';
-import Image from 'next/image'
 import { motion } from 'framer-motion';
+import ReactMarkdown from "react-markdown"
+import remarkGfm from 'remark-gfm'
+import { CustomH1, CustomH2, CustomH3, CustomH4, CustomH5, CustomH6, CustomParagraph, CustomEmphasis, CustomStrong, CustomLink, CustomImage, CustomBlockQuote, CustomCodeBlock } from '../components/customMarkdownElements'
 
-export default function MarkdownFile() {
+
+export default function MarkdownFile({ markdownText }) {  
     const [size, setSize] = useState({ width: 500, height: 300 });
     const [position, setPosition] = useState({ x: 0, y: 0 });
     const [mounted, setMounted] = useState(false);
@@ -29,6 +32,8 @@ export default function MarkdownFile() {
 
     const containerRef = useRef(null);
     const dragRef = useRef(null);
+
+    
 
     useEffect(() => {
         setDefaultX(window.innerWidth / 2 - size.width / 2);
@@ -90,7 +95,7 @@ export default function MarkdownFile() {
     function handleDivClick() {
         dispatch(selectMarkdownFile());
     }
-
+  
     return (
         <Draggable nodeRef={dragRef} handle=".handle" position={position} onDrag={handleDrag}>
             <motion.div
@@ -107,11 +112,11 @@ export default function MarkdownFile() {
                 <Resizable width={size.width} height={size.height} onResize={onResize}>
                     <div
                         style={{ width: '100%', height: '100%' }}
-                        className={"bg-gray-50 outline-solid outline-gray-400/60 w-full lg:min-w-[500px] min-w-[300px] lg:min-h-[30vh] min-h-[300px] border-2 border-solid border-gray-300 flex flex-col overflow-hidden" + (markdownFileFullscreen ? " rounded-none" : " rounded-lg")}
+                        className={"bg-gray-50 outline-solid outline-gray-300/60 w-full lg:min-w-[400px] min-w-[300px] lg:min-h-[500px] min-h-[400px] flex flex-col overflow-hidden" + (markdownFileFullscreen ? " rounded-none" : " rounded-lg")}
                     >
-                        <div className="bg-gray-100 handle hover:bg-gray-300/80 transition duration-300">
-                            <div className="flex w-full">
-                                <div className="flex w-1/6 max-w-[3vw] m-2 items-center">
+                        <div className="bg-gray-50 handle hover:border-b-1 hover:border-black/7 hover:shadow-xs transition duration-300 border-gray-100/20">
+                            <div className="flex items-center w-full p-2 py-3">
+                                <div className="flex w-1/6 lg:max-w-[3vw] max-w-[50px] items-center">
                                     <HoverableImage 
                                         srcDefault="/terminal_icons/terminal_red.png"
                                         srcHover="/terminal_icons/terminal_red_hover.png"
@@ -137,20 +142,32 @@ export default function MarkdownFile() {
                                         handleClick={handleClickGreen}
                                     />
                                 </div>
-                                <div className="flex justify-center w-full mr-[12%] items-center">
-                                    <Image 
-                                        src="/terminal_icons/terminal_folder.png"
-                                        width={15}
-                                        height={15}
-                                        alt="terminal folder"
-                                        className="mr-2"
-                                    />
-                                    <p>Stephen Ni - zsh</p>
+                                <div className="mx-4 font-bold text-black/75">
+                                    <p>Education</p>
                                 </div>
                             </div>
                         </div>
-                        <div ref={containerRef} className="flex grow overflow-y-auto">
-                
+                        <div ref={containerRef} className="flex grow overflow-y-auto p-4">
+                        <ReactMarkdown 
+                            remarkPlugins={[remarkGfm]}
+                            components={{
+                                h1: CustomH1,
+                                h2: CustomH2,
+                                h3: CustomH3,
+                                h4: CustomH4,
+                                h5: CustomH5,
+                                h6: CustomH6,
+                                p: CustomParagraph,
+                                em: CustomEmphasis,
+                                strong: CustomStrong,
+                                a: CustomLink,
+                                img: CustomImage,
+                                blockquote: CustomBlockQuote,
+                                code: CustomCodeBlock
+                            }}
+                        >
+                            {markdownText}
+                        </ReactMarkdown>
                         </div>
                     </div>
                 </Resizable>

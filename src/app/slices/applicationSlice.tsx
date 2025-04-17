@@ -24,11 +24,11 @@ export const applicationSlice = createSlice({
         finderDirectory: "Desktop",
         zIndexFinder: 10,
 
-        markdownFileOpen: false,
+        markdownFileOpen: true,
         markdownFileHide: false,
         markdownFileFullscreen: false,
         markdownFileWidth: 500,
-        markdownFileHeight: 300,
+        markdownFileHeight: 600,
         markdownFileX: -1,
         markdownFileY: -1,
         zIndexMarkdownFile: 10,
