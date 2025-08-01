@@ -16,7 +16,7 @@
 ### Design & Architecture
 - ✅ **"Domain Driven Design"** by Eric Evans
 - ✅ **"System Design Interview"** by Alex Xu
-- ✅ **"Objected Oriented Design"** Ruby
+- ✅ **"Objected Oriented Design Ruby"** by Sandi Metz
 - 📖 **"API Design Patterns"** by JJ Geewax
 
 ### Languages & Frameworks
