@@ -10,23 +10,20 @@ import Dock from '@/app/components/dock'
 import { useSelector, useDispatch } from 'react-redux'
 import { closePdfFile, hidePdfFile, maximizePdfFile, minimizePdfFile, selectPdfFile, updatePdfFilePosition, updatePdfFileSize } from '@/app/slices/applicationSlice'
 import { getImageProps } from 'next/image'
-import ReactMarkdown from "react-markdown"
-import remarkGfm from 'remark-gfm'
-import { CustomH1, CustomH2, CustomH3, CustomH4, CustomH5, CustomH6, CustomParagraph, CustomEmphasis, CustomStrong, CustomLink, CustomImage, CustomBlockQuote } from './components/customMarkdownElements'
 
 export default function Home() {
   const dispatch = useDispatch();
-  const terminalOpen = useSelector(state => state.application.terminalOpen)
-  const terminalHide = useSelector(state => state.application.terminalHide)
+    const terminalOpen = useSelector((state: any) => state.application.terminalOpen)
+  const terminalHide = useSelector((state: any) => state.application.terminalHide)
+  
+  const finderOpen = useSelector((state: any) => state.application.finderOpen)
+  const finderHide = useSelector((state: any) => state.application.finderHide)
 
-  const finderOpen = useSelector(state => state.application.finderOpen)
-  const finderHide = useSelector(state => state.application.finderHide)
+  const markdownFiles = useSelector((state: any) => state.application.markdownFiles)
+  const pdfFiles = useSelector((state: any) => state.application.pdfFiles)
 
-  const markdownFiles = useSelector(state => state.application.markdownFiles)
-  const pdfFiles = useSelector(state => state.application.pdfFiles)
-
-  const zIndexTerminal = useSelector(state => state.application.zIndexTerminal)
-  const zIndexFinder = useSelector(state => state.application.zIndexFinder)
+  const zIndexTerminal = useSelector((state: any) => state.application.zIndexTerminal)
+  const zIndexFinder = useSelector((state: any) => state.application.zIndexFinder)
 
   const inputRef = useRef(null);
 
@@ -69,7 +66,7 @@ export default function Home() {
         </div>
       }
 
-      {markdownFiles && markdownFiles.map((file) => (
+      {markdownFiles && markdownFiles.map((file: any) => (
         !file.isHidden && (
           <div key={file.id} className={`relative w-0 h-0`}>
             <MarkdownFile fileData={file} />
@@ -77,7 +74,7 @@ export default function Home() {
         )
       ))}
       
-      {pdfFiles && pdfFiles.map((file) => (
+      {pdfFiles && pdfFiles.map((file: any) => (
         !file.isHidden && (
           <div key={file.id} className={`relative w-0 h-0`}>
             <PDFViewer 

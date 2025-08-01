@@ -34,7 +34,7 @@ export default function TerminalInput({ containerRef, inputRef }) {
           inputRef.current.scrollIntoView();
           inputRef.current.focus({ preventScroll: true });
         }
-      }, [history]);
+      }, [history, inputRef]);
     
 
     return (
