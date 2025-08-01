@@ -144,7 +144,7 @@ export default function MarkdownFile({ fileData }: { fileData: MarkdownFileData 
         <Draggable 
             position={position} 
             onDrag={handleDrag} 
-            nodeRef={dragRef} 
+            nodeRef={dragRef as any} 
             handle=".handle"
             disabled={fileData.isFullscreen}
         >
@@ -227,11 +227,11 @@ export default function MarkdownFile({ fileData }: { fileData: MarkdownFileData 
                                             img: CustomImage,
                                             blockquote: CustomBlockQuote,
                                             code: CustomCodeBlock,
-                                            ul: ({ children }) => <CustomList ordered={false}>{children}</CustomList>,
-                                            ol: ({ children }) => <CustomList ordered={true}>{children}</CustomList>,
+                                            ul: ({ children }: any) => <CustomList ordered={false}>{children}</CustomList>,
+                                            ol: ({ children }: any) => <CustomList ordered={true}>{children}</CustomList>,
                                             li: CustomListItem,
                                             hr: CustomHR
-                                        }}
+                                        } as any}
                                     >
                                         {markdownContent}
                                     </ReactMarkdown>

@@ -1,13 +1,12 @@
 import React from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import { openFinder, showFinder } from '../slices/applicationSlice'
-import { addHistory } from '../slices/terminalSlice'
 import Image from 'next/image'
 import { animateAppOpen, animateAppClose } from '../animations/appAnimations'
 import { motion, useAnimation } from 'framer-motion'
 
 export default function FinderApp({ isDock = false }) {
-    const finderOpen = useSelector(state => state.application.finderOpen)
+    const finderOpen = useSelector((state: any) => state.application.finderOpen)
     const controls = useAnimation();
 
     const dispatch = useDispatch();

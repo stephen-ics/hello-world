@@ -1,7 +1,6 @@
 'use client'
 
 import { useState, useRef, useEffect } from 'react';
-import { useDispatch } from 'react-redux'
 import { Resizable } from 'react-resizable';
 import 'react-resizable/css/styles.css';
 import Draggable from 'react-draggable';
@@ -120,7 +119,7 @@ export default function PDFViewer({ fileData, onClose, onHide, onMaximize, onMin
         <Draggable 
             position={position} 
             onDrag={handleDrag} 
-            nodeRef={dragRef} 
+            nodeRef={dragRef as any} 
             handle=".handle"
             disabled={fileData.isFullscreen}
         >

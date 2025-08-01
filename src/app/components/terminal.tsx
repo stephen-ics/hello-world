@@ -12,7 +12,7 @@ import TerminalInput from './terminalInput'
 import Image from 'next/image'
 import { motion } from 'framer-motion';
 
-export default function Terminal({ inputRef }) {
+export default function Terminal({ inputRef }: { inputRef: any }) {
     const [size, setSize] = useState({ width: 500, height: 300 });
     const [position, setPosition] = useState({ x: 0, y: 0 });
     const [mounted, setMounted] = useState(false);
@@ -20,11 +20,11 @@ export default function Terminal({ inputRef }) {
 
     const dispatch = useDispatch();
 
-    const terminalFullscreen = useSelector(state => state.application.terminalFullscreen)
-    const terminalWidth = useSelector(state => state.application.terminalWidth)
-    const terminalHeight = useSelector(state => state.application.terminalHeight)
-    const terminalX = useSelector(state => state.application.terminalX)
-    const terminalY = useSelector(state => state.application.terminalY)
+    const terminalFullscreen = useSelector((state: any) => state.application.terminalFullscreen)
+    const terminalWidth = useSelector((state: any) => state.application.terminalWidth)
+    const terminalHeight = useSelector((state: any) => state.application.terminalHeight)
+    const terminalX = useSelector((state: any) => state.application.terminalX)
+    const terminalY = useSelector((state: any) => state.application.terminalY)
 
     const [defaultX, setDefaultX] = useState(0);
     const [defaultY, setDefaultY] = useState(0);
@@ -74,11 +74,11 @@ export default function Terminal({ inputRef }) {
         setTimeout(() => setAnimateTransition(false), 350);
     }
 
-    const onResize = (event, { size: newSize }) => {
+    const onResize = (event: any, { size: newSize }: any) => {
         setSize(newSize);
     };
 
-    const handleDrag = (e, data) => {
+    const handleDrag = (e: any, data: any) => {
         const screenW = window.innerWidth;
         const screenH = window.innerHeight;
         const maxX = screenW - size.width;
@@ -89,7 +89,7 @@ export default function Terminal({ inputRef }) {
         setPosition({ x: newX, y: newY });
     };
 
-    function handleContainerClick(event) {
+    function handleContainerClick() {
         inputRef.current.focus();
     }
     function handleDivClick() {
@@ -97,7 +97,7 @@ export default function Terminal({ inputRef }) {
     }
 
     return (
-        <Draggable nodeRef={dragRef} handle=".handle" position={position} onDrag={handleDrag}>
+        <Draggable nodeRef={dragRef as any} handle=".handle" position={position} onDrag={handleDrag}>
             <motion.div
                 ref={dragRef}
                 animate={{

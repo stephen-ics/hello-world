@@ -43,8 +43,8 @@ export default function Finder() {
     const [defaultX, setDefaultX] = useState(0);
     const [defaultY, setDefaultY] = useState(0);
 
-    const containerRef = useRef(null);
-    const dragRef = useRef(null);
+    const containerRef = useRef<HTMLDivElement>(null);
+    const dragRef = useRef<HTMLDivElement>(null);
 
     // Use dynamic file system
     const { getItemsAtPath, loading: fileSystemLoading, refetch } = useFileSystem();
@@ -110,7 +110,7 @@ export default function Finder() {
         setSize({width: size.width, height: size.height});
     };
 
-    const handleDrag = (e, data) => {
+    const handleDrag = (e: any, data: any) => {
         setPosition({ x: data.x, y: data.y });
     };
 
@@ -180,7 +180,7 @@ export default function Finder() {
             .map(name => currentItems.find(item => item.name === name))
             .filter(item => item && item.type === 'folder');
         
-        if (selectedFolders.length > 0) {
+        if (selectedFolders.length > 0 && selectedFolders[0]) {
             dispatch(changeDirectory(selectedFolders[0].name));
             setSelectedItems([]);
         }
@@ -230,7 +230,7 @@ export default function Finder() {
 
     return (
         <Draggable 
-            nodeRef={dragRef} 
+            nodeRef={dragRef as any} 
             handle=".handle" 
             position={position} 
             onDrag={handleDrag}

@@ -1,6 +1,6 @@
 import Image from 'next/image'
 
-export default function MarkdownFileIcon({ name, selected }) {
+export default function MarkdownFileIcon({ name, selected }: { name: string; selected: boolean }) {
     return (
         <div className='flex flex-col items-center w-full max-w-[70px] text-xs'>
             <div className={`duration-300 p-2 py-3 rounded-sm ${selected ? 'bg-black/15' : ''}`}>

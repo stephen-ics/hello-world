@@ -3,19 +3,19 @@ import { useSelector, useDispatch } from 'react-redux'
 import useShell from '../hooks/shell'
 import { addHistory } from '../slices/terminalSlice'
 
-export default function TerminalInput({ containerRef, inputRef }) {
+export default function TerminalInput({ containerRef, inputRef }: { containerRef: any; inputRef: any }) {
     const [command, setCommand] = useState('');
-    const history = useSelector(state => state.terminal.history);
-    const directory = useSelector(state => state.terminal.directory);
+    const history = useSelector((state: any) => state.terminal.history);
+    const directory = useSelector((state: any) => state.terminal.directory);
 
     const dispatch = useDispatch();
     const shell = useShell();
 
-    function handleChange(event) {
+    function handleChange(event: any) {
         setCommand(event.target.value);
     }
 
-    function handleSubmit(event) {
+    function handleSubmit(event: any) {
         if (event.key === 'Enter') {
             event.preventDefault();
             dispatch(addHistory(`visitor@stephenni.com${directory} % ${command}`));
@@ -40,7 +40,7 @@ export default function TerminalInput({ containerRef, inputRef }) {
     return (
         <div className='m-2 text-[10px] font-mono whitespace-pre'>
             <div>
-                {history && history.map((cmd, index) => (
+                {history && history.map((cmd: any, index: any) => (
                     <div key={index}>
                         <span>{cmd}</span>
                     </div>

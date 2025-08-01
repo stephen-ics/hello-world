@@ -7,7 +7,7 @@ import { useFileSystem } from './useFileSystem';
 
 export default function useShell() {
     const dispatch = useDispatch();
-    const directory = useSelector(state => state.terminal.directory);
+    const directory = useSelector((state: any) => state.terminal.directory);
     const { getItemsAtPath, getItemByPath } = useFileSystem();
 
     // Convert terminal directory format to file system path
@@ -50,7 +50,7 @@ export default function useShell() {
         else if (args[0] === 'exit') {
             dispatch(addHistory('Closing terminal...'));
             setTimeout(() => {
-                dispatch(closeTerminal())
+                dispatch(closeTerminal({ width: 500, height: 300, x: 0, y: 0 }))
             }, 1000);
         } else if (args[0] === 'ls') {
             const currentPath = getCurrentPath();

@@ -1,13 +1,12 @@
 import React from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import { openTerminal, showTerminal } from '../slices/applicationSlice'
-import { addHistory } from '../slices/terminalSlice'
 import Image from 'next/image'
 import { animateAppOpen, animateAppClose } from '../animations/appAnimations'
 import { motion, useAnimation } from 'framer-motion'
 
 export default function TerminalApp({ isDock = false }) {
-    const terminalOpen = useSelector(state => state.application.terminalOpen)
+    const terminalOpen = useSelector((state: any) => state.application.terminalOpen)
 
     const controls = useAnimation();
 

@@ -1,4 +1,4 @@
-const animateAppOpen = async (controls) => {
+const animateAppOpen = async (controls: any) => {
     await controls.start({
         filter: ['brightness(1)', 'brightness(0.5)', 'brightness(0.5)'],
         transition: {
@@ -13,7 +13,7 @@ const animateAppOpen = async (controls) => {
     });
 }
 
-const animateAppClose = async (controls) => {
+const animateAppClose = async (controls: any) => {
     await controls.start({
         y: [0, -10, 0],
         filter: ['brightness(1)', 'brightness(0.5)', 'brightness(0.5)'],
