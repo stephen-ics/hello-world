@@ -1,4 +1,4 @@
-# Professional Experience
+# 💼 Professional Experience
 
 ## Software Engineering Intern
 **Shopify** | *May 2025 - August 2025* | Toronto, Ontario
