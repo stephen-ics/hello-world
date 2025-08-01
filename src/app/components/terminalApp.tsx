@@ -20,7 +20,7 @@ export default function TerminalApp({ isDock = false }) {
             await new Promise(resolve => setTimeout(resolve, 500));
 
             dispatch(openTerminal());
-            dispatch(addHistory("Welcome to my world! 🐢\nType 'help' to view a list of available commands\nFeel free to click around, everything's interactive :)\nEnjoy your stay!"))
+            // Don't add welcome message here - it's already in the initial state
         } else {
             await animateAppOpen(controls);
         }
