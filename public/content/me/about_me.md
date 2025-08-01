@@ -6,11 +6,11 @@ Hey! Stephen here! 😁 If you've made it this far I feel like I can be a bit le
 
 I love building and solving problems and I could go on about the typical tech student monologue, but beyond that I ABSOLUTELY **LOVE** COMPUTER SCIENCE, not even just using computer science as medium to solve problems, I love computer science as a whole.
 
-It is just *crazy* to me that people can text to each other from across the world and browse the internet whenever they want - and calling?? How does calling work? How can a piece of metal imitate the sounds of a human voice. It seems like **MAGIC** 🔮.
+It is just *crazy* to me that people can text each other from across the world and browse the internet whenever they want - and calling?? How does calling work? How can a piece of metal imitate the sounds of a human voice. It seems like **MAGIC** 🔮.
 
 We weren't born into a world where we can fly around on a broomstick and shoot fireballs but we were born into one where we can transmit our voices across the thousands of miles and fit the whole worlds knowledge into a rectangle the size of a hand.
 
-And what's even crazier? The fact that humans built all of this from absolutely nothing, sometimes humans are absolutely amazing.
+And what's even crazier? The fact that humans built all of this from absolutely nothing, sometimes humans are truly amazing.
 
 ## What Drives Me
 
