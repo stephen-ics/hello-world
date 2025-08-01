@@ -1,7 +1,7 @@
-# Projects
+# 🚀 Projects
 
 ## Screentime
-*SwiftUI, Supabase, PostgreSQL* | **June 2025 - August 2025**  
+*SwiftUI, Supabase, PostgreSQL* |
 [GitHub](https://github.com/stephen-ics/screentime)
 
 - Built an iOS screen time app with **SwiftUI** and the Family Controls API, structuring its architecture around the **MVVM** design pattern and **SOLID** principles to ensure scalability
@@ -9,14 +9,14 @@
 - Architected a secure backend in **PostgreSQL**, integrating atomic transactions and row-level security to ensure the integrity and isolation of user data
 
 ## ConnectX
-*FastAPI, React, PostgreSQL, Docker* | **July 2023 - September 2023**  
+*FastAPI, React, PostgreSQL, Docker* |
 [GitHub](https://github.com/stephen-ics/api-development-backend)
 
 - Developed a full-stack web application with a **FastAPI** backend and **React** frontend, implementing secure user authentication and data persistence via **JWT** tokens and **PostgreSQL**
 - Established an end-to-end CI/CD pipeline using **GitHub Actions** and **Docker**, automating the testing and containerized deployment of the application to a Digital Ocean server configured with **Nginx**
 
 ## Celeste
-*Go* | **July 2023 - August 2023**  
+*Go* |
 [GitHub](https://github.com/stephen-ics/celeste)
 
 - Developed a Turing-complete compiler in **Go**, comprising of a **lexer**, **parser**, and **abstract syntax tree**
