@@ -1,4 +1,4 @@
-# Education
+# 🎒 Education
 
 ## University of Waterloo
 **Systems Design Engineering**  
