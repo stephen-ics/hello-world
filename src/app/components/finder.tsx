@@ -2,259 +2,252 @@
 
 import { useState, useRef, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux'
-import { changeDirectory, closeFinder, hideFinder, maximizeFinder, minimizeFinder, selectFinder, openDesktopTab, openDownloadsTab, openMarkdownFile } from '../slices/applicationSlice'
+import { changeDirectory, closeFinder, hideFinder, maximizeFinder, minimizeFinder, selectFinder, openDesktopTab, openDownloadsTab, openMarkdownFile, openPdfFile } from '../slices/applicationSlice'
 import { Resizable } from 'react-resizable';
 import 'react-resizable/css/styles.css';
 import Draggable from 'react-draggable';
 import HoverableImage from './hoverableImage';
 import Image from 'next/image'
 import Folder from './folder'
-import MarkdownFileIcon from './markdownFileIcon';
+import MarkdownFileIcon from './markdownFileIcon'
+import PDFFileIcon from './pdfFileIcon'
 import { motion } from 'framer-motion';
+import { useFileSystem } from '../hooks/useFileSystem';
+import { getParentPath } from '../config/fileSystem';
+import type { FileSystemItem } from '../hooks/useFileSystem';
 
 export default function Finder() {
-    const [size, setSize] = useState({ width: 500, height: 300 });
-    const [position, setPosition] = useState({ x: 0, y: 0 });
+    const [size, setSize] = useState({ width: 800, height: 600 });
+    // Initialize position to center of screen
+    const [position, setPosition] = useState({ 
+        x: typeof window !== 'undefined' ? window.innerWidth / 2 - 400 : 0, 
+        y: typeof window !== 'undefined' ? window.innerHeight / 2 - 300 : 0 
+    });
     const [mounted, setMounted] = useState(false);
     const [animateTransition, setAnimateTransition] = useState(false);
     const dispatch = useDispatch();
 
-    const [selectProfessionalSummary, setSelectProfessionalSummary] = useState(false);
-    const [selectMe, setSelectMe] = useState(false);
-    const [selectEducation, setSelectEducation] = useState(false);
-    const [selectExperiences, setSelectExperiences] = useState(false);
-    const [selectProjects, setSelectProjects] = useState(false);
-    const [selectSkills, setSelectSkills] = useState(false);
-    const [selectAboutMe, setSelectAboutMe] = useState(false);
-    const [selectBooks, setSelectBooks] = useState(false);
-    const [selectThoughts, setSelectThoughts] = useState(false);
+    // State for selected items
+    const [selectedItems, setSelectedItems] = useState<string[]>([]);
 
-    const finderFullscreen = useSelector(state => state.application.finderFullscreen)
-    const finderWidth = useSelector(state => state.application.finderWidth)
-    const finderHeight = useSelector(state => state.application.finderHeight)
-    const finderX = useSelector(state => state.application.finderX)
-    const finderY = useSelector(state => state.application.finderY)
+    const finderFullscreen = useSelector((state: any) => state.application.finderFullscreen)
+    const finderWidth = useSelector((state: any) => state.application.finderWidth)
+    const finderHeight = useSelector((state: any) => state.application.finderHeight)
+    const finderX = useSelector((state: any) => state.application.finderX)
+    const finderY = useSelector((state: any) => state.application.finderY)
 
-    const finderDesktopOpen = useSelector(state => state.application.finderTabDesktop)
-    const finderDownloadsOpen = useSelector(state => state.application.finderTabDownloads)
-
-    const finderDirectory = useSelector(state => state.application.finderDirectory);
+    const finderDesktopOpen = useSelector((state: any) => state.application.finderTabDesktop)
+    const finderDownloadsOpen = useSelector((state: any) => state.application.finderTabDownloads)
+    const finderDirectory = useSelector((state: any) => state.application.finderDirectory)
 
     const [defaultX, setDefaultX] = useState(0);
     const [defaultY, setDefaultY] = useState(0);
 
+    const containerRef = useRef(null);
     const dragRef = useRef(null);
 
-    useEffect(() => {
-        setDefaultX(window.innerWidth / 2 - size.width / 2);
-        setDefaultY(window.innerHeight / 2 - size.height);
-        setPosition({ x: defaultX, y: defaultY });
+    // Use dynamic file system
+    const { getItemsAtPath, loading: fileSystemLoading, refetch } = useFileSystem();
 
-        if(finderX === -1 && finderY === -1) {
-            setPosition({ x: window.innerWidth / 2 - size.width / 2, y: window.innerHeight / 2 - size.height });
-        } else {
-            setPosition({ x: finderX, y: finderY });
+    // Get current path based on finderDirectory
+    const getCurrentPath = () => {
+        if (finderDirectory === "Desktop" || finderDirectory === "Downloads") {
+            return "/";
         }
+        // Convert directory display name to path
+        return "/" + finderDirectory;
+    };
 
-        setSize({ width: finderWidth, height: finderHeight });
+    // Get items for current directory
+    const currentItems = getItemsAtPath(getCurrentPath());
+
+    useEffect(() => {
+        // Set size from Redux or use default
+        const initialWidth = finderWidth || 800;
+        const initialHeight = finderHeight || 600;
+        setSize({ width: initialWidth, height: initialHeight });
+        
+        // Calculate center position based on actual size
+        const centerX = window.innerWidth / 2 - initialWidth / 2;
+        const centerY = window.innerHeight / 2 - initialHeight / 2;
+        setDefaultX(centerX);
+        setDefaultY(centerY);
+        
+        // Check if we have saved position from Redux state
+        if (finderX !== -1 && finderY !== -1) {
+            setPosition({ x: finderX, y: finderY });
+        } else {
+            // Use calculated center position
+            setPosition({ x: centerX, y: centerY });
+        }
+        
         setMounted(true);
     }, []);
 
+    // Handle fullscreen changes
+    useEffect(() => {
+        if (mounted) {
+            if (finderFullscreen) {
+                setSize({ width: window.innerWidth, height: window.innerHeight });
+                setPosition({ x: 0, y: 0 });
+            } else {
+                // Only use saved position if it's not the default -1
+                if (finderX !== -1 && finderY !== -1) {
+                    setSize({ width: finderWidth, height: finderHeight });
+                    setPosition({ x: finderX, y: finderY });
+                }
+                // Otherwise keep the current position (which should be centered)
+            }
+        }
+    }, [finderFullscreen, mounted]);
+
     if (!mounted) return null;
+    
+    // Ensure we have window dimensions
+    if (typeof window === 'undefined') return null;
 
-    function handleClickRed() {
-        dispatch(closeFinder({ width: 800, height: 600, x: defaultX, y: defaultY }));
-    }
-
-    function handleClickYellow() {
-        dispatch(hideFinder({ width: size.width, height: size.height, x: position.x, y: position.y }));
-    }
-
-    function handleClickGreen() {
-        setAnimateTransition(true);
-
-        if (finderFullscreen) {
-            dispatch(minimizeFinder());
-            setSize({ width: finderWidth, height: finderHeight });
-            setPosition({ x: finderX, y: finderY });
-        } else {
-            dispatch(maximizeFinder({ width: size.width, height: size.height, x: position.x, y: position.y }));
-            setSize({ width: window.innerWidth, height: window.innerHeight });
-            setPosition({ x: 0, y: 0 });
-        }
-
-        setTimeout(() => setAnimateTransition(false), 350);
-    }
-
-    function handleDesktopClick() {
-        dispatch(openDesktopTab());
-        dispatch(changeDirectory("Desktop"));
-    }
-
-    function handleDownloadsClick() {
-        dispatch(openDownloadsTab());
-        dispatch(changeDirectory("Downloads"));
-    }
-
-    function unselectAll() {
-        setSelectProfessionalSummary(false);
-        setSelectMe(false);
-        setSelectEducation(false);
-        setSelectExperiences(false);
-        setSelectProjects(false);
-        setSelectSkills(false);
-        setSelectAboutMe(false);
-        setSelectBooks(false);
-        setSelectThoughts(false);
-    }
-
-    function handleProfessionalSummaryClick(event) {
-        event.stopPropagation();
-
-        if(selectProfessionalSummary === true) {
-            dispatch(changeDirectory("professional-summary"));
-        } else {
-            unselectAll();
-            setSelectProfessionalSummary(true);
-        }
-    }
-
-    function handleMeClick(event) {
-        event.stopPropagation();
-
-        if(selectMe === true) {
-            dispatch(changeDirectory("me!"));
-        } else {
-            unselectAll();
-            setSelectMe(true);
-        }
-    }
-
-    function handleEducation(event) {
-        event.stopPropagation();
-
-        if(selectEducation === true) {
-            dispatch(openMarkdownFile());
-        } else {
-            unselectAll();
-            setSelectEducation(true);
-        }
-    }
-
-    function handleExperiences(event) {
-        event.stopPropagation();
-
-        if(selectExperiences === true) {
-            // dispatch(changeDirectory("me!"));
-        } else {
-            unselectAll();
-            setSelectExperiences(true);
-        }
-    }
-
-    function handleProjects(event) {
-        event.stopPropagation();
-
-        if(selectProjects === true) {
-            // dispatch(changeDirectory("me!"));
-        } else {
-            unselectAll();
-            setSelectProjects(true);
-        }
-    }
-
-    function handleSkills(event) {
-        event.stopPropagation();
-
-        if(selectSkills === true) {
-            // dispatch(changeDirectory("me!"));
-        } else {
-            unselectAll();
-            setSelectSkills(true);
-        }
-    }
-
-    function handleAboutMe(event) {
-        event.stopPropagation();
-
-        if(selectAboutMe === true) {
-            // dispatch(changeDirectory("me!"));
-        } else {
-            unselectAll();
-            setSelectAboutMe(true);
-        }
-    }
-
-    function handleBooks(event) {
-        event.stopPropagation();
-
-        if(selectBooks === true) {
-            // dispatch(changeDirectory("me!"));
-        } else {
-            unselectAll();
-            setSelectBooks(true);
-        }
-    }
-
-    function handleThoughts(event) {
-        event.stopPropagation();
-
-        if(selectThoughts === true) {
-            // dispatch(changeDirectory("me!"));
-        } else {
-            unselectAll();
-            setSelectThoughts(true);
-        }
-    }
-
-    function handleLeftArrowClick() {
-        if((finderDirectory === "professional-summary" || finderDirectory === "me!") && finderDesktopOpen === true) {
-            dispatch(changeDirectory("Desktop"));
-        } else if((finderDirectory === "professional-summary" || finderDirectory === "me!") && finderDownloadsOpen === true) {
-            dispatch(changeDirectory("Downloads"))
-        }
-    }
-
-    function handleRightArrowClick() {
-        if(selectProfessionalSummary) {
-            dispatch(changeDirectory("professional-summary"));
-        } else if(selectMe) {
-            dispatch(changeDirectory("me!"))
-        }
-    }
-
-    const onResize = (event, { size: newSize }) => {
-        setSize(newSize);
+    const onResize = (event: any, { size }: { size: { width: number; height: number } }) => {
+        setSize({width: size.width, height: size.height});
     };
 
     const handleDrag = (e, data) => {
-        const screenW = window.innerWidth;
-        const screenH = window.innerHeight;
-        const maxX = screenW - size.width;
-        const maxY = screenH - size.height;
-
-        const newX = Math.max(0, Math.min(data.x, maxX));
-        const newY = Math.max(0, Math.min(data.y, maxY));
-        setPosition({ x: newX, y: newY });
+        setPosition({ x: data.x, y: data.y });
     };
 
-    function handleDivClick() {
+    const handleClickRed = () => {
+        dispatch(closeFinder());
+    }
+
+    const handleClickYellow = () => {
+        dispatch(hideFinder({
+            width: size.width,
+            height: size.height,
+            x: position.x,
+            y: position.y
+        }));
+    }
+
+    const handleClickGreen = () => {
+        if (finderFullscreen) {
+            dispatch(minimizeFinder({
+                width: finderWidth,
+                height: finderHeight,
+                x: finderX,
+                y: finderY
+            }));
+        } else {
+            dispatch(maximizeFinder({
+                width: size.width,
+                height: size.height,
+                x: position.x,
+                y: position.y
+            }));
+        }
+        setAnimateTransition(true);
+        setTimeout(() => setAnimateTransition(false), 350);
+    }
+
+    const handleSelectFinder = () => {
         dispatch(selectFinder());
     }
 
+    const handleDesktopClick = () => {
+        dispatch(openDesktopTab());
+        setSelectedItems([]);
+    }
+
+    const handleDownloadsClick = () => {
+        dispatch(openDownloadsTab());
+        setSelectedItems([]);
+    }
+
+    const handleLeftArrowClick = () => {
+        const currentPath = getCurrentPath();
+        if (currentPath !== "/") {
+            const parentPath = getParentPath(currentPath);
+            if (parentPath === "/") {
+                dispatch(changeDirectory("Desktop"));
+            } else {
+                dispatch(changeDirectory(parentPath.substring(1)));
+            }
+            setSelectedItems([]);
+        }
+    }
+
+    const handleRightArrowClick = () => {
+        // Navigate to first selected folder if any
+        const selectedFolders = selectedItems
+            .map(name => currentItems.find(item => item.name === name))
+            .filter(item => item && item.type === 'folder');
+        
+        if (selectedFolders.length > 0) {
+            dispatch(changeDirectory(selectedFolders[0].name));
+            setSelectedItems([]);
+        }
+    }
+
+    const handleItemClick = (item: FileSystemItem, event: React.MouseEvent) => {
+        event.stopPropagation();
+        
+        // Single click just selects the item
+        setSelectedItems([item.name]);
+    }
+
+    const handleItemDoubleClick = (item: FileSystemItem) => {
+        if (item.type === 'folder') {
+            dispatch(changeDirectory(item.name));
+            setSelectedItems([]);
+        } else if (item.type === 'file' && item.name.endsWith('.md')) {
+            // Open markdown file on double click
+            dispatch(openMarkdownFile({
+                fileName: item.name,
+                filePath: item.content || item.path
+            }));
+        } else if (item.type === 'file' && item.name.endsWith('.pdf')) {
+            // Open PDF file on double click
+            dispatch(openPdfFile({
+                fileName: item.name,
+                filePath: item.content || item.path
+            }));
+        }
+    }
+
+    const unselectAll = (event: React.MouseEvent) => {
+        event.stopPropagation();
+        setSelectedItems([]);
+    }
+
+    const isLeftArrowDisabled = () => {
+        return finderDirectory === "Desktop" || finderDirectory === "Downloads";
+    }
+
+    const isRightArrowDisabled = () => {
+        const selectedFolders = selectedItems
+            .map(name => currentItems.find(item => item.name === name))
+            .filter(item => item && item.type === 'folder');
+        return selectedFolders.length === 0;
+    }
 
     return (
-        <Draggable nodeRef={dragRef} handle=".handle" position={position} onDrag={handleDrag}>
+        <Draggable 
+            nodeRef={dragRef} 
+            handle=".handle" 
+            position={position} 
+            onDrag={handleDrag}
+            disabled={finderFullscreen}
+            defaultPosition={{ x: window.innerWidth / 2 - 400, y: window.innerHeight / 2 - 300 }}
+        >
             <motion.div
                 ref={dragRef}
+                className='absolute'
                 animate={{
-                    width: size.width,
-                    height: size.height,
-                    x: position.x,
-                    y: position.y
+                    width: finderFullscreen ? '100vw' : `${size.width}px`,
+                    height: finderFullscreen ? '100vh' : `${size.height}px`,
+                    x: finderFullscreen ? 0 : position.x,
+                    y: finderFullscreen ? 0 : position.y
                 }}
                 transition={animateTransition ? { duration: 0.3, ease: 'easeOut' } : { duration: 0 }}
-                onClick={handleDivClick}
+                onClick={handleSelectFinder}
             >
                 <Resizable width={size.width} height={size.height} onResize={onResize}>
                     <div
@@ -326,7 +319,7 @@ export default function Finder() {
                             >
                                 <div className='flex items-center ml-4'>
                                     <div className='hover:bg-gray-300/80 duration-300 rounded-md p-2' onClick={handleLeftArrowClick}>
-                                        {(finderDirectory === "Desktop" || finderDirectory === "Downloads") ?
+                                        {isLeftArrowDisabled() ?
                                             <Image 
                                                 src='/app_icons/app_finder_left_light.png'
                                                 width={9}
@@ -343,7 +336,7 @@ export default function Finder() {
                                         }
                                     </div>
                                     <div className='hover:bg-gray-300/80 duration-300 rounded-md p-2' onClick={handleRightArrowClick}>
-                                        {(finderDirectory === "professional-summary" || finderDirectory === "me!") ?
+                                        {isRightArrowDisabled() ?
                                             <Image 
                                                 src='/app_icons/app_finder_right_light.png'
                                                 width={9}
@@ -359,51 +352,57 @@ export default function Finder() {
                                             />
                                         }
                                     </div>
-                                    <div className='p-2 text-sm text-black/70 font-bold'>
+                                    <div className='p-2 text-sm text-black/70 font-bold flex-1'>
                                         {finderDirectory}
+                                    </div>
+                                    <div 
+                                        className='hover:bg-gray-300/80 duration-300 rounded-md p-2 mr-2 cursor-pointer' 
+                                        onClick={refetch}
+                                        title="Refresh file system"
+                                    >
+                                        <svg 
+                                            className="w-4 h-4 text-gray-600" 
+                                            fill="none" 
+                                            stroke="currentColor" 
+                                            viewBox="0 0 24 24"
+                                        >
+                                            <path 
+                                                strokeLinecap="round" 
+                                                strokeLinejoin="round" 
+                                                strokeWidth={2} 
+                                                d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" 
+                                            />
+                                        </svg>
                                     </div>
                                 </div>
                             </div>
                             <div className='w-full h-full' onClick={unselectAll}>
-                                {(finderDirectory === "Desktop" || finderDirectory === "Downloads") &&
-                                    <div className='p-4 gap-10 flex flex-wrap'>
-                                        <div onClick={handleProfessionalSummaryClick}>
-                                            <Folder name="professional-summary" selected={selectProfessionalSummary} />
+                                <div className='p-4 gap-10 flex flex-wrap'>
+                                    {currentItems.map((item) => (
+                                        <div 
+                                            key={item.name}
+                                            onClick={(e) => handleItemClick(item, e)}
+                                            onDoubleClick={() => handleItemDoubleClick(item)}
+                                        >
+                                            {item.type === 'folder' ? (
+                                                <Folder 
+                                                    name={item.name} 
+                                                    selected={selectedItems.includes(item.name)} 
+                                                />
+                                            ) : item.name.endsWith('.pdf') ? (
+                                                <PDFFileIcon 
+                                                    name={item.name} 
+                                                    selected={selectedItems.includes(item.name)} 
+                                                />
+                                            ) : (
+                                                <MarkdownFileIcon 
+                                                    name={item.name} 
+                                                    selected={selectedItems.includes(item.name)} 
+                                                />
+                                            )}
                                         </div>
-                                        <div onClick={handleMeClick}>
-                                            <Folder name="me!" selected={selectMe} />
-                                        </div>
-                                    </div>
-                                }
-                                {(finderDirectory === "professional-summary") &&
-                                    <div className='p-4 gap-10 flex flex-wrap'>
-                                        <div onClick={handleEducation}>
-                                            <MarkdownFileIcon name="education.md" selected={selectEducation} />
-                                        </div>
-                                        <div onClick={handleExperiences}>
-                                            <MarkdownFileIcon name="experiences.md" selected={selectExperiences} />
-                                        </div>
-                                        <div onClick={handleProjects}>
-                                            <MarkdownFileIcon name="projects.md" selected={selectProjects} />
-                                        </div>
-                                        <div onClick={handleSkills}>
-                                            <MarkdownFileIcon name="skills.md" selected={selectSkills} />
-                                        </div>
-                                    </div>
-                                }
-                                {(finderDirectory === "me!") &&
-                                    <div className='p-4 gap-10 flex flex-wrap'>
-                                        <div onClick={handleAboutMe}>
-                                            <MarkdownFileIcon name="about_me.md" selected={selectAboutMe} />
-                                        </div>
-                                        <div onClick={handleBooks}>
-                                            <MarkdownFileIcon name="books.md" selected={selectBooks} />
-                                        </div>
-                                        <div onClick={handleThoughts}>
-                                            <MarkdownFileIcon name="thoughts.md" selected={selectThoughts} />
-                                        </div>
-                                    </div>
-                                }
+                                    ))}
+                                </div>
                             </div>
                         </div>
                     </div>
