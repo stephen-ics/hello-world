@@ -35,10 +35,17 @@ export default function TerminalInput({ containerRef, inputRef }: { containerRef
           inputRef.current.focus({ preventScroll: true });
         }
       }, [history, inputRef]);
+
+    useEffect(() => {
+        if (inputRef.current) {
+            inputRef.current.style.height = 'auto';
+            inputRef.current.style.height = `${inputRef.current.scrollHeight}px`;
+        }
+    }, [command, inputRef]);
     
 
     return (
-        <div className='m-2 text-[10px] font-mono whitespace-pre'>
+        <div className='m-2 text-[10px] font-mono whitespace-pre-wrap break-words'>
             <div>
                 {history && history.map((cmd: any, index: any) => (
                     <div key={index}>
@@ -46,17 +53,17 @@ export default function TerminalInput({ containerRef, inputRef }: { containerRef
                     </div>
                 ))}
             </div>
-            <div className=''>
-                <span>visitor@stephenni.com{directory} % </span>
-                <input
+            <div className='w-full'>
+                <div>visitor@stephenni.com{directory} %</div>
+                <textarea
                     ref={inputRef}
                     name="command"
-                    type="text"
                     value={command}
                     onChange={handleChange}
                     onKeyDown={handleSubmit}
                     autoFocus
-                    className='border-none outline-none'
+                    rows={1}
+                    className='w-full border-none outline-none bg-transparent text-black caret-black resize-none overflow-hidden whitespace-pre-wrap break-words'
                 />
             </div>
         </div>
