@@ -54,8 +54,17 @@ export default function Finder() {
         if (finderDirectory === "Desktop" || finderDirectory === "Downloads") {
             return "/";
         }
-        // Convert directory display name to path
+        // finderDirectory stores a relative path like "me/thoughts"
         return "/" + finderDirectory;
+    };
+
+    const getDirectoryLabel = () => {
+        if (finderDirectory === "Desktop" || finderDirectory === "Downloads") {
+            return finderDirectory;
+        }
+
+        const parts = finderDirectory.split('/').filter(part => part !== '');
+        return parts[parts.length - 1] || "Desktop";
     };
 
     // Get items for current directory
@@ -153,11 +162,13 @@ export default function Finder() {
 
     const handleDesktopClick = () => {
         dispatch(openDesktopTab());
+        dispatch(changeDirectory("Desktop"));
         setSelectedItems([]);
     }
 
     const handleDownloadsClick = () => {
         dispatch(openDownloadsTab());
+        dispatch(changeDirectory("Downloads"));
         setSelectedItems([]);
     }
 
@@ -181,7 +192,7 @@ export default function Finder() {
             .filter(item => item && item.type === 'folder');
         
         if (selectedFolders.length > 0 && selectedFolders[0]) {
-            dispatch(changeDirectory(selectedFolders[0].name));
+            dispatch(changeDirectory(selectedFolders[0].path.substring(1)));
             setSelectedItems([]);
         }
     }
@@ -195,7 +206,7 @@ export default function Finder() {
 
     const handleItemDoubleClick = (item: FileSystemItem) => {
         if (item.type === 'folder') {
-            dispatch(changeDirectory(item.name));
+            dispatch(changeDirectory(item.path.substring(1)));
             setSelectedItems([]);
         } else if (item.type === 'file' && item.name.endsWith('.md')) {
             // Open markdown file on double click
@@ -353,7 +364,7 @@ export default function Finder() {
                                         }
                                     </div>
                                     <div className='p-2 text-sm text-black/70 font-bold flex-1'>
-                                        {finderDirectory}
+                                        {getDirectoryLabel()}
                                     </div>
                                     <div 
                                         className='hover:bg-gray-300/80 duration-300 rounded-md p-2 mr-2 cursor-pointer' 

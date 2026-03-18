@@ -15,9 +15,13 @@ export default function useShell() {
         if (!directory || directory === "") {
             return "/";
         }
-        // Remove leading space if present
+        // Terminal prompt keeps segments space-separated (e.g. " me thoughts").
+        // Convert it to a file path ("/me/thoughts") for filesystem lookups.
         const cleanDir = directory.trim();
-        return "/" + cleanDir;
+        if (cleanDir === "") {
+            return "/";
+        }
+        return "/" + cleanDir.split(/\s+/).join('/');
     };
 
     return function handleCommand(command: string) {

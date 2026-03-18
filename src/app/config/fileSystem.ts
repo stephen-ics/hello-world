@@ -60,10 +60,23 @@ export const fileSystem: FileSystemItem = {
           content: '/content/me/books.md'
         },
         {
-          name: 'thoughts.md',
-          type: 'file',
-          path: '/me/thoughts.md',
-          content: '/content/me/thoughts.md'
+          name: 'thoughts',
+          type: 'folder',
+          path: '/me/thoughts',
+          children: [
+            {
+              name: 'delayed_gratification.md',
+              type: 'file',
+              path: '/me/thoughts/delayed_gratification.md',
+              content: '/content/me/thoughts/delayed_gratification.md'
+            },
+            {
+              name: 'vibe_coding_technical_debt.md',
+              type: 'file',
+              path: '/me/thoughts/vibe_coding_technical_debt.md',
+              content: '/content/me/thoughts/vibe_coding_technical_debt.md'
+            }
+          ]
         }
       ]
     }
