@@ -63,7 +63,7 @@ export default function Finder() {
             return finderDirectory;
         }
 
-        const parts = finderDirectory.split('/').filter(part => part !== '');
+        const parts = finderDirectory.split('/').filter((part: string) => part !== '');
         return parts[parts.length - 1] || "Desktop";
     };
 
