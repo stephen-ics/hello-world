@@ -12,13 +12,12 @@
   --font-mono: var(--font-geist-mono);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+/* The desktop UI is light-only (white windows on a fixed wallpaper), so keep
+   the palette identical when the OS is in dark mode — otherwise the inherited
+   foreground turns near-white and blends into the terminal/finder windows. */
+html {
+  color-scheme: light;
 }
-
 
 body {
   background: var(--background);
