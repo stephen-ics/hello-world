@@ -53,8 +53,8 @@ export default function TerminalInput({ containerRef, inputRef }: { containerRef
                     </div>
                 ))}
             </div>
-            <div className='w-full'>
-                <div>visitor@stephenni.com{directory} %</div>
+            <div className='w-full flex'>
+                <div className='whitespace-nowrap'>visitor@stephenni.com{directory} %&nbsp;</div>
                 <textarea
                     ref={inputRef}
                     name="command"
@@ -63,7 +63,7 @@ export default function TerminalInput({ containerRef, inputRef }: { containerRef
                     onKeyDown={handleSubmit}
                     autoFocus
                     rows={1}
-                    className='w-full border-none outline-none bg-transparent text-black caret-black resize-none overflow-hidden whitespace-pre-wrap break-words'
+                    className='flex-1 border-none outline-none bg-transparent text-black caret-black resize-none overflow-hidden whitespace-pre-wrap break-words'
                 />
             </div>
         </div>
